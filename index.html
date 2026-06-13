@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nellore Speech and Hearing Clinic | Comprehensive Rehabilitation</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0d9488;
+            --accent: #f0fdfa;
+            --dark: #0f172a;
+            --light-text: #475569;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scroll Animation Target Layouts */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Global Header Section */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--light-text);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary);
+        }
+
+        /* Hero Banner Block */
+        .hero-banner {
+            background: radial-gradient(circle at 80% 20%, var(--accent) 0%, #eff6ff 100%);
+            padding: 7rem 2rem 6rem;
+            position: relative;
+        }
+
+        .hero-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.25rem;
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--light-text);
+            margin-bottom: 2.5rem;
+        }
+
+        .action-tray {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+            background: #0f766e;
+        }
+
+        .btn-sub {
+            background: var(--white);
+            color: var(--primary);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(30, 58, 138, 0.2);
+            transition: var(--transition);
+        }
+
+        .btn-sub:hover {
+            background: #f1f5f9;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Updated Hero Image Frame Architecture */
+        .hero-image-frame {
+            width: 100%;
+            max-width: 420px;
+            height: 340px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(30, 58, 138, 0.12);
+            padding: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 2px solid var(--secondary);
+            border-radius: 24px;
+            animation: radarPulse 3s infinite linear;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .pulse-ring:nth-child(2) { animation-delay: 1.5s; }
+
+        @keyframes radarPulse {
+            0% { transform: scale(0.98); opacity: 0.5; }
+            100% { transform: scale(1.1); opacity: 0; }
+        }
+
+        /* Module-Wise Services Layout */
+        .services-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .module-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 10px 15px -3px rgba(0,0,0,0.03);
+            border: 1px solid #f1f5f9;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.02);
+        }
+
+        .module-banner {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .module-content {
+            padding: 2.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-content h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .items-preview {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .items-preview li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .items-preview li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Read More Hidden Drawer Component */
+        .extended-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            list-style: none;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 0;
+        }
+
+        .extended-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .extended-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0.5rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .card-expanded .extended-list {
+            max-height: 350px;
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: auto;
+            font-size: 0.95rem;
+            align-self: flex-start;
+        }
+
+        /* Inside Our Sessions Media Module */
+        .sessions-media {
+            background-color: #f1f5f9;
+            padding: 6rem 2rem;
+        }
+
+        .media-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        /* Modern Beneficiaries Slider Styling */
+        .carousel-container {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px -5px rgba(30, 58, 138, 0.08);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-img-wrapper {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+            background-color: #e2e8f0;
+        }
+
+        .slide-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-caption {
+            padding: 1.5rem 0.5rem 0.5rem;
+            text-align: center;
+        }
+
+        .slide-caption h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-caption p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* Slider Control Triggers */
+        .carousel-arrow {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            color: var(--primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .carousel-arrow:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .arrow-left { left: 2.5rem; }
+        .arrow-right { right: 2.5rem; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #cbd5e1;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--secondary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .gallery-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .gallery-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+
+        .gallery-img {
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            min-height: 120px;
+        }
+
+        .gallery-text {
+            padding: 1.25rem;
+        }
+
+        .gallery-text h4 {
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-text p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        /* Team Showcase Section Styles */
+        .team-section {
+            max-width: 1200px;
+            margin: 6rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .team-display {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+            border: 1px solid #e2e8f0;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+        }
+
+        .team-img-pane {
+            height: 470px;
+            background-color: #cbd5e1;
+        }
+
+        .team-img-pane img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-text-pane {
+            padding: 3.5rem;
+        }
+
+        .team-text-pane h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-text-pane p {
+            color: var(--light-text);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Facility Information Core Module */
+        .facility-strip {
+            background: var(--white);
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 5rem 2rem;
+        }
+
+        .facility-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .info-block h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-block p {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .pamphlet-container {
+            background: #fafafa;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .pamphlet-container img {
+            width: 100%;
+            max-width: 340px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Social Channel Integration Strip */
+        .social-strip {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: var(--white);
+        }
+
+        .btn-youtube {
+            background: #ff0000;
+            color: var(--white);
+        }
+
+        .social-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--secondary);
+        }
+
+        /* Responsive Breakpoint Adaptations */
+        @media (max-width: 968px) {
+            .hero-layout { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .action-tray { justify-content: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .media-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+            .slide-img-wrapper { height: 260px; }
+            .team-display { grid-template-columns: 1fr; }
+            .team-img-pane { height: 300px; }
+            .team-text-pane { padding: 2rem; text-align: center; }
+            .facility-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .pamphlet-container img { max-width: 100%; }
+        }
+
+        @media (max-width: 640px) {
+            .nav-menu { display: none; }
+            .gallery-card { grid-template-columns: 1fr; }
+            .gallery-img { height: 140px; }
+            .carousel-arrow { width: 36px; height: 36px; top: 35%; }
+            .arrow-left { left: 1rem; }
+            .arrow-right { right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">🔊 Nellore Clinic</a>
+            <nav class="nav-menu">
+                <a href="#services">Rehabilitation Services</a>
+                <a href="#sessions">Inside Sessions</a>
+                <a href="#team">Our Specialists</a>
+                <a href="#about">Clinic Schedule</a>
+                <a href="#social">Connect</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <div class="hero-layout">
+            <div class="hero-text">
+                <h1>Nellore Speech and Hearing Clinic</h1>
+                <p>Providing specialized individual rehabilitation plans for both children and adults. Rediscover the joy of seamless communication through certified speech, language, and audiological care systems.</p>
+                <div class="action-tray">
+                    <a href="tel:+917207404238" class="btn-main">Call Office: +91 72074 04238</a>
+                    <a href="#services" class="btn-sub">Explore Modules</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    <img src="building.jpeg" alt="Nellore Speech and Hearing Clinic Building Frontage and Sign Board">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="section-header reveal">
+            <h2>Our Specialized Treatment Modules</h2>
+            <p>Every clinical service is adapted to individual age variations with precision diagnostics and target tracking metrics.</p>
+        </div>
+
+        <div class="module-grid">
+            <div class="module-card reveal">
+                <div class="module-banner" style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcR1FeJjHuAN6eGqeYmpt-84gLKXP1aw9XDvGQm6WHg3plhf4QE31oPAlCWFjfSmm0dAA0zxTMqmwkPWa38');"></div>
+                <div class="module-content">
+                    <h3>Hearing Services</h3>
+                    <ul class="items-preview">
+                        <li>Pure Tone Audiometry (Assessment)</li>
+                        <li>Hearing Loss Diagnosis & Screening</li>
+                        <li>Hearing Aid Consultation</li>
+                    </ul>
+                    <ul class="extended-list">
+                        <li>Precision Hearing Aid Fitting</li>
+                        <li>Digital Adjustments & Programming</li>
+                        <li>Long-term Hearing Rehabilitation Guidance</li>
+                    </ul>
+                    <button class="read-more-btn">Read More Services <span>↓</span></button>
+                </div>
+            </div>
+
+            <div class="module-card reveal">
+                <div class="module-banner" style="background-image: url('https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTp0f0SQVfIbpYotwDiteekV7_QTzOtpn2x_yCFHiw3wJGgjkiT8zFP5ztwHJfAQFA5eeeGXbU_oBSb-qI');"></div>
+                <div class="module-content">
+                    <h3>Speech & Language</h3>
+                    <ul class="items-preview">
+                        <li>Speech Delay Therapy (Children)</li>
+                        <li>Stammering & Stuttering Therapy</li>
+                        <li>Articulation & Pronunciation Support</li>
+                    </ul>
+                    <ul class="extended-list">
+                        <li>Comprehensive Language Therapy</li>
+                        <li>Targeted Voice Therapy Modules</li>
+                        <li>Communication Disorder Strategies</li>
+                        <li>Post-Neurological Condition Rehab</li>
+                    </ul>
+                    <button class="read-more-btn">Read More Services <span>↓</span></button>
+                </div>
+            </div>
+
+            <div class="module-card reveal">
+                <div class="module-banner" style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcR9xmU8dldeIMxGhZnhev1XbcIx9-lOddVBuNbw66m_icgTlaj0WFMxt69rluGGiQxE5AIGBKnWz1rhTLo');"></div>
+                <div class="module-content">
+                    <h3>Pediatric Rehabilitation</h3>
+                    <ul class="items-preview">
+                        <li>Developmental Delay Assessments</li>
+                        <li>Early Intervention Frameworks</li>
+                        <li>Parental Counseling Tracks</li>
+                    </ul>
+                    <ul class="extended-list">
+                        <li>At-Home Training Model Workbooks</li>
+                        <li>Early Speech & Hearing Integration Care</li>
+                        <li>Individualized Progress Milestone Reports</li>
+                    </ul>
+                    <button class="read-more-btn">Read More Services <span>↓</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sessions" class="sessions-media">
+        <div class="section-header reveal">
+            <h2>Our Beneficiaries & Methodology</h2>
+            <p>See our play-based teaching methodology and structural learning environments in action.</p>
+        </div>
+
+        <div class="media-layout reveal">
+            <div class="carousel-container">
+                <button class="carousel-arrow arrow-left" id="prevBtn" aria-label="Previous Slide">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="carousel-arrow arrow-right" id="nextBtn" aria-label="Next Slide">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <div class="slide-img-wrapper">
+                                <img src="child1.jpeg" alt="Active Speech Therapy Session with Child">
+                            </div>
+                            <div class="slide-caption">
+                                <h3>Early Intervention Success</h3>
+                                <p>Real progress tracked through structured, fun, and personalized communication exercises.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-img-wrapper">
+                                <img src="child2.jpeg" alt="Child during language milestones training">
+                            </div>
+                            <div class="slide-caption">
+                                <h3>Interactive Vocabulary Building - Part 1</h3>
+                                <p>Helping children overcome speech delays by building confidence through interactive play frameworks.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-slide">
+                            <div class="slide-img-wrapper">
+                                <img src="child21.jpeg" alt="Alternative interactive vocabulary training session">
+                            </div>
+                            <div class="slide-caption">
+                                <h3>Interactive Vocabulary Building - Part 2</h3>
+                                <p>Using targeted tools and speech tracking to clear up articulation and pronunciation challenges dynamically.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <div class="slide-img-wrapper">
+                                <img src="child3.jpeg" alt="Pediatric audiology screening tracking">
+                            </div>
+                            <div class="slide-caption">
+                                <h3>Milestone Achievement</h3>
+                                <p>Celebrating small wins everyday as our little heroes discover the joy of expression.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-dots" id="carouselDots">
+                    <div class="dot active" data-index="0"></div>
+                    <div class="dot" data-index="1"></div>
+                    <div class="dot" data-index="2"></div>
+                    <div class="dot" data-index="3"></div>
+                </div>
+            </div>
+
+            <div class="gallery-column">
+                <div class="gallery-card">
+                    <div class="gallery-img" style="background-image: url('childplaying.jpeg'); background-color: #cbd5e1;"></div>
+                    <div class="gallery-text">
+                        <h4>Play-Based Engagement</h4>
+                        <p>Children learn best when they are happy. We use therapeutic interactive toys to encourage natural sound formation and sound matching.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <div class="gallery-img" style="background-image: url('childwithcard.jpeg'); background-color: #cbd5e1;"></div>
+                    <div class="gallery-text">
+                        <h4>Visual Linguistics</h4>
+                        <p>Using high-contrast vocabulary flashcards and interactive mapping structures to clear up articulation/pronunciation difficulties early.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team-section reveal">
+        <div class="team-display">
+            <div class="team-img-pane">
+                <img src="staff.jpeg" alt="Nellore Speech and Hearing Clinic Professional Clinical Team Group Photo">
+            </div>
+            <div class="team-text-pane">
+                <h3>Our Certified Clinical Team</h3>
+                <p>Meet the passionate, experienced professionals behind your family's milestones. Our licensed practitioners cooperate across disciplines to assure transparent progress tracking and warm, ethical clinical guidance.</p>
+                <div style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--secondary); font-weight: 600;">
+                    <span>✓ RCI Registered</span>
+                    <span>✓ Certified Audiologists</span>
+                    <span>✓ Speech Pathologists</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="facility-strip">
+        <div class="facility-layout reveal">
+            <div class="info-grid">
+                <div class="info-block">
+                    <h3>📍 Clinic Address</h3>
+                    <p>Balaji Nagar Road, Balaji Nagar,<br>AC Nagar, Nellore,<br>Andhra Pradesh – 524002</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; font-style: italic;">Landmark: Behind Balaji Tools</p>
+                </div>
+                <div class="info-block">
+                    <h3>🕒 Operating Hours</h3>
+                    <p><strong>Monday to Saturday:</strong><br>10:00 AM – 8:30 PM</p>
+                    <p style="margin-top: 0.5rem; color: #dc2626;"><strong>Sunday:</strong> Closed</p>
+                </div>
+                <div class="info-block">
+                    <h3>📞 Direct Contact</h3>
+                    <p><strong>Phone Lines:</strong><br><a href="tel:+917207404238" style="color: inherit; font-weight: 600;">+91 72074 04238</a></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Call for appointments.</p>
+                </div>
+            </div>
+            
+            <div class="pamphlet-container">
+                <h4 style="color: var(--primary); margin-bottom: 0.75rem; font-size: 1.1rem; font-weight: 600;">Latest Campaign & Updates</h4>
+                <img src="pamphlet.jpeg" alt="Clinical Announcement and WhatsApp Status Pamphlet">
+            </div>
+        </div>
+    </section>
+
+    <section id="social" class="social-strip reveal">
+        <h2>Follow Our Community Outlets</h2>
+        <p>Stay up to date with speech milestone insights, hearing health guidelines, and clinical updates via our media nodes.</p>
+        <div class="social-buttons">
+            <a href="https://www.instagram.com/nellorespeech?igsh=MTNoazFzbTF3YW13aA==" target="_blank" class="social-btn btn-instagram">📸 Instagram Profile</a>
+            <a href="https://www.youtube.com/@SpeechHear" target="_blank" class="social-btn btn-youtube">📺 YouTube Channel</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nellore Speech and Hearing Clinic. All Rights Reserved. Private Rehabilitation Practices Network.</p>
+    </footer>
+
+    <script>
+        // Smooth Intersection Observer Animation for Aesthetic Transitions
+        const revealElements = document.querySelectorAll('.reveal');
+        const observerOptions = {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Read More Expansion Toggle logic
+        document.querySelectorAll('.read-more-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.module-card');
+                card.classList.toggle('card-expanded');
+                
+                if (card.classList.contains('card-expanded')) {
+                    btn.innerHTML = 'Show Less Services <span>↑</span>';
+                } else {
+                    btn.innerHTML = 'Read More Services <span>↓</span>';
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+
+        // Beneficiary Carousel Architecture
+        const track = document.getElementById('carouselTrack');
+        const slides = Array.from(track.children);
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('carouselDots');
+        const dots = Array.from(dotsContainer.children);
+        
+        let currentIndex = 0;
+
+        const updateSliderPosition = (index) => {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Sync indicators
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentIndex = index;
+        };
+
+        nextButton.addEventListener('click', () => {
+            let nextIndex = currentIndex + 1;
+            if (nextIndex >= slides.length) nextIndex = 0;
+            updateSliderPosition(nextIndex);
+        });
+
+        prevButton.addEventListener('click', () => {
+            let prevIndex = currentIndex - 1;
+            if (prevIndex < 0) prevIndex = slides.length - 1;
+            updateSliderPosition(prevIndex);
+        });
+
+        dotsContainer.addEventListener('click', e => {
+            const targetDot = e.target.closest('.dot');
+            if (!targetDot) return;
+            const targetIndex = parseInt(targetDot.getAttribute('data-index'));
+            updateSliderPosition(targetIndex);
+        });
+    </script>
+</body>
+</html>
