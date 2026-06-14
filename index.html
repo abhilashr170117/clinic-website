@@ -846,6 +846,22 @@
     .section-container {
         padding: 50px 20px;
     }
+    .main-menu ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* This forces a clean 2x2 grid */
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+    }
+
+    .main-menu li a {
+        display: block;
+        padding: 10px;
+        background: #f4f4f4; /* Subtle background for tap targets */
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+    }
     }
     </style>
 </head>
