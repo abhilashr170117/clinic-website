@@ -796,15 +796,56 @@
             transform: translateY(0);
         }
         /* ADD YOUR MOBILE FIXES HERE */
-    @media (max-width: 768px) {
-      /* Example: change the nav display to stack vertically */
-      .header-nav { 
-        flex-direction: column; 
-      }
-      /* Example: make the title font smaller */
-      .main-title { 
-        font-size: 20px; 
-      }
+    /* Responsive Mobile Optimization */
+@media (max-width: 768px) {
+    /* 1. Header adjustment */
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .brand-logo-area {
+        flex-direction: column;
+    }
+
+    /* 2. Stack Grid Layouts */
+    .quick-grid, 
+    .module-grid, 
+    .equipment-threegrid, 
+    .info-card-panel {
+        grid-template-columns: 1fr !important;
+        padding: 30px 15px;
+    }
+
+    /* 3. Hero section padding */
+    .hero-banner {
+        padding: 80px 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    /* 4. Team Section Stacking */
+    .team-display {
+        grid-template-columns: 1fr;
+        padding: 25px;
+    }
+
+    /* 5. Carousel and Media Adjustments */
+    .media-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .slide-img-wrapper {
+        height: 250px;
+    }
+
+    /* 6. General Spacing */
+    .section-container {
+        padding: 50px 20px;
+    }
     }
     </style>
 </head>
