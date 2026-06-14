@@ -13,10 +13,10 @@
     <style>
         /* Vibrant Aesthetic Palette: Deep Emerald, Royal Blue, Marigold, Soft Ivory */
         :root {
-            --brand-green: #1e4631;         /* Deep Rich Emerald Forest (Not dull, not neon) */
+            --brand-green: #1e4631;         /* Deep Rich Emerald Forest */
             --brand-dark-green: #122d1f;    /* Luxury Dark Botanical Green */
-            --brand-blue: #0f4c81;          /* Crisp Premium Royal Blue */
-            --brand-dark-blue: #082c4e;     /* Deep Midnight Navy */
+            --brand-blue: #1a5f96;          /* Clean Medium Royal Blue (Perfect balanced depth) */
+            --brand-dark-blue: #0f3d61;     /* Deep Balanced Navy for contrast */
             --brand-yellow: #f3b01a;        /* Vibrant Marigold Gold / Sharp Accent Yellow */
             --brand-light-yellow: #f8f4e8;  /* Rich Warm Cream / Soft Light Yellow Tint */
             --text-dark: #1b221e;           /* Clean, High-contrast Dark Slate */
@@ -43,10 +43,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Header Navigation: Deep Rich Emerald & Marigold Highlights */
+        /* Header Navigation: Clean Balanced Blue Background */
         header.site-nav-header {
-            background: var(--brand-dark-green);
-            box-shadow: 0 4px 20px rgba(18, 45, 31, 0.15);
+            background: var(--brand-blue);
+            box-shadow: 0 4px 20px rgba(26, 95, 150, 0.15);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -91,7 +91,7 @@
 
         nav.main-menu a {
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             font-weight: 600;
             padding: 10px 16px;
             border-radius: 8px;
@@ -100,18 +100,19 @@
         }
 
         nav.main-menu a:hover {
-            color: var(--brand-dark-green);
+            color: var(--text-dark);
             background-color: var(--brand-yellow);
         }
 
-        /* Hero Landing Section - Deep Emerald & Royal Gradient Overlay */
+        /* Hero Landing Section - Enhanced Transparency for the Building Image */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(18, 45, 31, 0.95), rgba(15, 76, 129, 0.9)), url('building.jpeg');
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.88), rgba(241, 245, 242, 0.15)), url('building.jpeg');
             background-size: cover;
             background-position: center;
-            color: var(--white);
-            padding: 130px 20px;
+            color: var(--text-dark);
+            padding: 140px 20px;
             text-align: center;
+            border-bottom: 1px solid rgba(30, 70, 49, 0.08);
         }
 
         .hero-content h2 {
@@ -120,14 +121,15 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             line-height: 1.2;
+            color: var(--brand-dark-blue);
         }
 
         .hero-content p {
             font-size: 1.3rem;
             max-width: 780px;
             margin: 0 auto;
-            opacity: 0.95;
-            font-weight: 400;
+            /* color: var(--text-muted); */
+            font-weight: 500;
         }
 
         /* Quick Floating Cards Matrix Grid Section */
@@ -175,11 +177,11 @@
             background-color: var(--white);
             border-color: var(--brand-blue);
             border-bottom-color: var(--brand-yellow);
-            box-shadow: 0 12px 24px rgba(15, 76, 129, 0.15);
+            box-shadow: 0 12px 24px rgba(26, 95, 150, 0.15);
             color: var(--brand-dark-blue);
         }
 
-        /* FLOATING TOOLTIP BOX - Deep Royal Blue Theme with Sharp Marigold Accents */
+        /* FLOATING TOOLTIP BOX - Deep Balanced Blue Theme with Sharp Marigold Accents */
         .quick-popup-tooltip {
             position: absolute;
             bottom: 125%; 
@@ -190,7 +192,7 @@
             color: var(--white);
             padding: 22px;
             border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(8, 44, 78, 0.3);
+            box-shadow: 0 15px 35px rgba(15, 61, 97, 0.3);
             text-align: left;
             border: 1px solid rgba(255, 255, 255, 0.12);
             
@@ -502,7 +504,7 @@
             position: absolute;
             top: 42%;
             transform: translateY(-50%);
-            background: rgba(15, 76, 129, 0.95);
+            background: rgba(26, 95, 150, 0.95);
             color: var(--white);
             border: none;
             width: 48px;
@@ -802,7 +804,7 @@
         <div class="nav-container">
             <div class="brand-logo-area">
                 <img src="logo.jpeg" alt="Nellore Clinic Logo">
-                <h1>Nellore Speech & Hearing Clinic</h1>
+                <h1>Nellore Speech & Hearing Rehabilitation Clinic</h1>
             </div>
             <nav class="main-menu">
                 <ul>
@@ -815,10 +817,10 @@
         </div>
     </header>
 
-    <!-- Top Hero Banner Workspace Grid Element -->
+    <!-- Top Hero Banner Workspace Grid Element with Faded Background Transparency -->
     <section class="hero-banner">
         <div class="hero-content">
-            <h2>Premium Diagnostics & Integrative Rehabilitation</h2>
+            <h2>Nellore Speech & Hearing Rehabilitation Clinic</h2>
             <p>Empowering children and adults with customized care frameworks across speech, processing, and comprehensive neurodevelopmental paths.</p>
         </div>
     </section>
