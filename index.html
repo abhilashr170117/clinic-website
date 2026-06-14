@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nellore Speech and Hearing Rehabilitation Clinic | Premium Diagnostics & Therapy</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* ========================================================
-               LOGO CONFIGURATION VARIABLE 
-               ======================================================== */
+            /* LOGO CONFIGURATION VARIABLE */
             --logo-url: url('logo.jpeg');
 
-            /* Premium Clinical Color Palette */
-            --primary: #0a2d37;       /* Deep Oceanic Slate Blue */
-            --header-gradient: linear-gradient(135deg, #0a2d37 0%, #114656 100%);
-            --secondary: #0ea5e9;     /* Bio-Electric Sky Blue */
-            --mint: #10b981;          /* Healing Mint */
-            --dark: #0f172a;          /* Rich Charcoal */
-            --light-text: #475569;    /* Darker Muted Slate for Higher Contrast Visibility */
+            /* Vibrant Modern Palette: Blue, Green, Yellow, White */
+            --brand-blue: #006B8F;       /* Deep Teal Blue for authority and headers */
+            --brand-green: #2E8B57;      /* Seafoam/Fresh Green for growth & health */
+            --brand-yellow: #FFD700;     /* Warm Sunny Yellow for happy accents */
             
-            /* 👉 IMPROVED: DARKER, DEEPER AMBIENT GRADIENT FOR CLIENT COMFORT */
-            --bg-gradient: linear-gradient(180deg, #cbdce3 0%, #dde8ec 40%, #edf4f7 100%);
-            --white: #ffffff;
+            /* Enhanced visible background gradient colors */
+            --bg-gradient-start: #e2f0f0; /* Richer, highly visible icy light teal */
+            --bg-gradient-end: #dcece2;   /* Richer, highly visible soft mint green */
+            --white: #ffffff;            
             
-            --card-shadow: 0 15px 35px -10px rgba(10, 45, 55, 0.08), 0 4px 12px -4px rgba(10, 45, 55, 0.04);
-            --hover-shadow: 0 30px 50px -10px rgba(10, 45, 55, 0.18), 0 12px 24px -6px rgba(10, 45, 55, 0.08);
+            /* Text Hierarchy Colors */
+            --text-dark: #11222c;        
+            --text-muted: #51636d;       
+            
             --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -32,7 +31,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
         }
 
         html {
@@ -40,13 +39,31 @@
         }
 
         body {
-            /* 👉 RE-CONFIGURED STABLE AMBIENT COLOR SCHEME */
-            background: var(--bg-gradient);
+            /* More pronounced gradient visible to the bare eye */
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             background-attachment: fixed;
-            color: var(--dark);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* Ambient Floating Bubbles with Soft Depth Shadows */
+        .bubble-decor {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 15px 35px rgba(0, 107, 143, 0.12), inset 0 4px 10px rgba(255, 255, 255, 0.6);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .b1 { width: 120px; height: 120px; top: 15%; left: -40px; }
+        .b2 { width: 280px; height: 280px; top: 40%; right: -80px; background: linear-gradient(135deg, rgba(46, 139, 87, 0.15) 0%, rgba(0, 107, 143, 0.08) 100%); }
+        .b3 { width: 90px; height: 90px; top: 75%; left: 5%; }
 
         /* Reveal Animations */
         .reveal {
@@ -60,18 +77,19 @@
             transform: translateY(0);
         }
 
+        /* Modern Blue Header Strip */
         header {
-            background: var(--header-gradient);
+            background: var(--brand-blue);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 10px 30px rgba(10, 45, 55, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 107, 143, 0.15);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.85rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -82,29 +100,34 @@
             display: flex;
             align-items: center;
             text-decoration: none;
-            gap: 1rem;
+            gap: 1.2rem;
             flex-shrink: 1;
         }
 
+        /* Logo Configuration: Clean borders removed, expanded width/height */
         .clinic-logo-box {
-            height: 60px;
-            width: 60px;
+            height: 64px;
+            width: 64px;
             background-image: var(--logo-url);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
-            border-radius: 50%;
-            border: 2px solid var(--white);
+            border-radius: 14px;
+            border: none;
             display: block;
             flex-shrink: 0;
         }
 
         .logo-text {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--white);
             letter-spacing: -0.01em;
             line-height: 1.2;
+        }
+
+        .logo-text span {
+            color: var(--brand-yellow);
         }
 
         .nav-menu {
@@ -116,177 +139,269 @@
 
         .nav-menu a {
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 0.95rem;
-            padding: 0.25rem 0;
+            padding: 0.4rem 0;
             white-space: nowrap; 
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--brand-yellow);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
         .nav-menu a:hover {
             color: var(--white);
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
-        /* Hero Layer */
+        /* Dynamic Hero Section with Custom Geometry Image Layout */
         .hero-banner {
-            background: radial-gradient(circle at 85% 15%, rgba(14, 165, 233, 0.2) 0%, rgba(244, 248, 250, 0) 60%);
-            padding: 7rem 2rem 6rem;
+            padding: 7rem 2rem 9rem;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-layout {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 5rem;
             align-items: center;
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
-            color: var(--primary);
+            font-size: 3.6rem;
+            color: var(--text-dark);
             line-height: 1.15;
             margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
+            font-weight: 700;
+            letter-spacing: -0.03em;
         }
 
         .hero-text p {
             font-size: 1.2rem;
-            color: #334155;
-            margin-bottom: 1.5rem;
+            color: var(--brand-blue);
+            font-weight: 500;
+            line-height: 1.6;
+            border-left: 4px solid var(--brand-green);
+            padding-left: 1.5rem;
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-visual-container {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            height: 440px;
+        }
+
+        .hero-visual-container::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
+            border-radius: 44px 8px 44px 8px;
+            z-index: 1;
+            opacity: 0.3;
+            filter: blur(12px);
         }
 
         .hero-visual img {
             width: 100%;
-            max-width: 420px;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: var(--hover-shadow);
+            height: 100%;
+            object-fit: cover;
+            border-radius: 40px 4px 40px 4px;
+            position: relative;
+            z-index: 2;
             border: 4px solid var(--white);
+            box-shadow: 0 30px 60px rgba(0, 107, 143, 0.18);
+            transition: var(--transition);
+        }
+
+        .hero-visual:hover img {
+            transform: scale(1.03) rotate(1deg);
+            border-color: var(--brand-yellow);
         }
 
         /* Sections Structural Layout */
         .section-container {
             max-width: 1200px;
-            margin: 7rem auto;
+            margin: 6rem auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 3;
         }
 
         .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
+            text-align: left; 
+            max-width: 750px;
+            margin-bottom: 4.5rem;
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
+            font-size: 2.6rem;
+            color: var(--text-dark);
             margin-bottom: 1rem;
+            font-weight: 700;
             letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--brand-green);
+            border-radius: 2px;
         }
 
         .section-header p {
-            color: #334155;
+            color: var(--text-muted);
             font-size: 1.1rem;
+            margin-top: 1rem;
         }
 
-        /* Grid Layout: Understanding Common Conditions */
+        /* Grid Layout: Common Conditions */
         .problems-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
         }
 
         .problem-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            text-align: center;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            text-align: left;
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 45px rgba(0, 107, 143, 0.04);
+            position: relative;
+        }
+
+        .problem-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--brand-blue), var(--brand-green));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+            border-radius: 0 0 24px 24px;
+        }
+
+        .problem-card:hover::after {
+            transform: scaleX(1);
         }
 
         .problem-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-            background: var(--white);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 35px 70px rgba(0, 107, 143, 0.1);
         }
 
         .problem-icon-wrapper {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 2rem;
+            background: rgba(0, 107, 143, 0.06);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
+            transition: var(--transition);
         }
 
-        .problem-icon-wrapper svg {
-            width: 100%;
-            height: 100%;
+        .problem-card:hover .problem-icon-wrapper {
+            background: var(--brand-blue);
+            transform: rotate(-5deg);
         }
 
         .problem-card h3 {
-            color: var(--primary);
-            font-size: 1.35rem;
-            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-size: 1.45rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
         }
 
         .problem-card p {
-            color: var(--light-text);
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.65;
         }
 
-        /* Modern Matrix Service Grid */
+        /* Modern Grid Layout Services Matrix */
         .module-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3.5rem;
         }
 
         .module-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
+            background: var(--white);
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 20px 50px rgba(0, 107, 143, 0.04);
         }
 
         .module-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--hover-shadow);
-            background: var(--white);
+            transform: translateY(-8px);
+            box-shadow: 0 35px 70px rgba(46, 139, 87, 0.12);
         }
 
         .module-banner {
-            height: 220px;
+            height: 280px;
             background-size: cover;
             background-position: center;
+            position: relative;
         }
 
         .module-content {
-            padding: 2.5rem;
+            padding: 3rem 2.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            background: linear-gradient(to bottom, var(--white), #f9fbf9);
         }
 
         .module-content h3 {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
         .items-preview {
@@ -295,33 +410,36 @@
 
         .items-preview li {
             position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--light-text);
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .items-preview li::before {
             content: "✓";
             position: absolute;
             left: 0;
-            color: var(--mint);
+            color: var(--brand-green);
             font-weight: 700;
+            font-size: 1.1rem;
         }
 
         .extended-list {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             list-style: none;
-            border-top: 1px dashed #cbd5e1;
+            border-top: 1px dashed rgba(46, 139, 87, 0.2);
             padding-top: 0;
         }
 
         .extended-list li {
             position: relative;
-            padding-left: 1.5rem;
-            margin-top: 0.75rem;
-            color: var(--light-text);
+            padding-left: 1.8rem;
+            margin-top: 1rem;
+            color: var(--text-muted);
             font-size: 0.95rem;
         }
 
@@ -329,7 +447,9 @@
             content: "•";
             position: absolute;
             left: 0.4rem;
-            color: var(--secondary);
+            color: var(--brand-blue);
+            font-weight: 700;
+            font-size: 1.3rem;
         }
 
         .card-expanded .extended-list {
@@ -341,105 +461,116 @@
         .read-more-btn {
             background: none;
             border: none;
-            color: var(--secondary);
-            font-weight: 600;
+            color: var(--brand-blue);
+            font-weight: 700;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.5rem;
             margin-top: auto;
-            padding-top: 1.5rem;
-            font-size: 0.95rem;
+            padding-top: 2rem;
+            font-size: 1rem;
+            transition: var(--transition);
+            width: fit-content;
+        }
+
+        .read-more-btn:hover {
+            color: var(--brand-green);
         }
 
         /* 3-Column Equipment & Instrument Grid */
         .equipment-threegrid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
         }
 
         .equipment-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px 6px 30px 6px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
             display: flex;
             flex-direction: column;
             transition: var(--transition);
+            box-shadow: 0 15px 45px rgba(0, 107, 143, 0.03);
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
         .equipment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
+            transform: translateY(-8px);
             background: var(--white);
+            box-shadow: 0 35px 70px rgba(0, 107, 143, 0.08);
+            border-radius: 6px 30px 6px 30px;
         }
 
         .equipment-img-space {
             width: 100%;
-            height: 220px;
-            background-color: #cbd5e1;
-            position: relative;
+            height: 250px;
             overflow: hidden;
+            padding: 8px 8px 0 8px;
         }
 
         .equipment-img-space img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 24px 4px 24px 4px;
+            transition: transform 0.7s ease, border-radius 0.5s ease;
+        }
+
+        .equipment-card:hover .equipment-img-space img {
+            transform: scale(1.04);
+            border-radius: 4px 24px 4px 24px;
         }
 
         .equipment-details {
-            padding: 2rem;
+            padding: 2.5rem;
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
         }
 
         .equipment-details h3 {
-            color: var(--primary);
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
         }
 
         .equipment-details p {
-            color: var(--light-text);
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.65;
         }
 
-        /* Therapy Sessions Slider & Gallery Layout */
+        /* Therapy Sessions Section Carousel */
         .sessions-media-bg {
-            background-color: rgba(10, 45, 55, 0.06);
-            box-shadow: inset 0 20px 40px rgba(10, 45, 55, 0.03), inset 0 -20px 40px rgba(10, 45, 55, 0.03);
-            padding: 1px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(46, 139, 87, 0.06) 50%, transparent 100%);
+            padding: 2rem 0;
         }
 
         .media-layout {
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 3.5rem;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
             align-items: center;
         }
 
         .carousel-container {
             background: var(--white);
-            padding: 1.5rem;
-            border-radius: 28px;
-            box-shadow: var(--card-shadow);
+            padding: 1.25rem;
+            border-radius: 32px;
             position: relative;
+            box-shadow: 0 30px 70px rgba(0,107,143,0.06);
         }
 
         .carousel-viewport {
             overflow: hidden;
             width: 100%;
-            border-radius: 16px;
+            border-radius: 22px;
         }
 
         .carousel-track {
             display: flex;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
         }
 
@@ -451,48 +582,49 @@
 
         .slide-img-wrapper {
             width: 100%;
-            height: 360px;
-            background-color: #cbd5e1;
+            height: 420px;
+            padding: 4px;
         }
 
         .slide-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 18px;
         }
 
         .slide-caption {
-            padding: 1.5rem 0.5rem 0;
+            padding: 2rem 1rem 1rem;
             text-align: center;
         }
 
-        .slide-caption h3 { color: var(--primary); margin-bottom: 0.4rem; }
-        .slide-caption p { color: var(--light-text); font-size: 0.95rem; }
+        .slide-caption h3 { color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.45rem; font-weight: 700; }
+        .slide-caption p { color: var(--text-muted); font-size: 1rem; }
 
         .carousel-arrow {
             position: absolute;
             top: 45%;
             transform: translateY(-50%);
-            background: var(--white);
+            background: var(--brand-blue);
             border: none;
-            color: var(--primary);
-            width: 50px;
-            height: 50px;
+            color: var(--white);
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 25px rgba(0,107,143,0.25);
             z-index: 10;
-            font-size: 1.25rem;
-            font-weight: bold;
+            font-size: 1.3rem;
             transition: var(--transition);
         }
 
         .carousel-arrow:hover { 
-            background: var(--primary); 
-            color: var(--white); 
+            background: var(--brand-green);
+            box-shadow: 0 10px 25px rgba(46,139,87,0.3);
+            transform: translateY(-50%) scale(1.08);
         }
         .arrow-left { left: 2rem; }
         .arrow-right { right: 2rem; }
@@ -500,159 +632,244 @@
         .carousel-dots {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1.25rem;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
         }
 
-        .dot { width: 9px; height: 9px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
-        .dot.active { background: var(--secondary); width: 24px; border-radius: 5px; }
+        .dot { width: 9px; height: 9px; background: rgba(0,107,143,0.15); border-radius: 50%; cursor: pointer; transition: var(--transition); }
+        .dot.active { background: var(--brand-blue); width: 26px; border-radius: 6px; }
 
-        .gallery-column { display: flex; flex-direction: column; gap: 1.5rem; }
+        .gallery-column { display: flex; flex-direction: column; gap: 2rem; }
         .gallery-card {
             background: var(--white);
-            border-radius: 16px;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            box-shadow: var(--card-shadow);
-        }
-
-        .gallery-img { background-size: cover; background-position: center; height: 100%; min-height: 130px; }
-        .gallery-text { padding: 1.5rem; }
-        .gallery-text h4 { color: var(--primary); margin-bottom: 0.3rem; }
-        .gallery-text p { color: var(--light-text); font-size: 0.9rem; }
-
-        /* Medical Staff Presentation Block */
-        .team-display {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-        }
-
-        .team-img-pane { height: 460px; background-color: #cbd5e1; }
-        .team-img-pane img { width: 100%; height: 100%; object-fit: cover; }
-        .team-text-pane { padding: 4rem; }
-        .team-text-pane h3 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem; }
-        .team-text-pane p { color: var(--light-text); margin-bottom: 2rem; }
-        
-        .team-badges { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-        .team-badges span {
-            background: #f0fdf4;
-            color: #16a34a;
-            padding: 0.4rem 1.1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid rgba(22, 163, 74, 0.1);
-        }
-
-        /* Combined Information and Map Layout Area */
-        .location-section-wrapper {
-            /* 👉 RE-CONFIGURED WRAPPER TINT FOR RICH DEPTH BACKGROUND */
-            background-color: rgba(14, 165, 233, 0.12);
-            border-top: 1px solid rgba(14, 165, 233, 0.15);
-            border-bottom: 1px solid rgba(14, 165, 233, 0.15);
-            padding: 5rem 0;
-        }
-
-        .facility-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .info-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
-        .info-block h3 { color: var(--primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
-        .info-block p { color: #1e293b; font-weight: 500; }
-        .info-block p var(--light-text) { color: var(--light-text); }
-        .info-block a { color: #0284c7; text-decoration: none; font-weight: 700; transition: color 0.3s ease; }
-        .info-block a:hover { color: var(--primary); text-decoration: underline; }
-
-        /* Map Panel Container */
-        .map-interactive-wrapper {
-            background: var(--white);
             border-radius: 24px;
-            padding: 10px;
-            box-shadow: 0 25px 55px rgba(10, 45, 55, 0.12);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.02);
             border: 1px solid rgba(255,255,255,0.8);
-            height: 400px;
-            position: relative;
-        }
-
-        .map-interactive-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 16px;
-        }
-
-        /* Social Channel Strip */
-        .social-strip { text-align: center; }
-        .social-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
-        .social-btn {
-            padding: 0.9rem 2.2rem;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             transition: var(--transition);
         }
 
-        .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%); color: var(--white); }
-        .btn-youtube { background: #ff0000; color: var(--white); }
-        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+        .gallery-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 20px 50px rgba(0,107,143,0.06);
+        }
 
-        footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.5);
-            padding: 4rem 2rem;
-            text-align: center;
+        .gallery-img { background-size: cover; background-position: center; height: 100%; min-height: 140px; margin: 6px; border-radius: 18px; }
+        .gallery-text { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+        .gallery-text h4 { color: var(--text-dark); margin-bottom: 0.5rem; font-size: 1.2rem; font-weight: 700; }
+        .gallery-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
+
+        /* Medical Staff Presentation Block */
+        .team-display {
+            background: var(--white);
+            border-radius: 36px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            align-items: center;
+            box-shadow: 0 30px 70px rgba(0, 107, 143, 0.05);
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .team-img-pane { height: 520px; overflow: hidden; padding: 12px; }
+        .team-img-pane img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; }
+        .team-text-pane { padding: 5rem; }
+        .team-text-pane h3 { color: var(--text-dark); font-size: 2.5rem; margin-bottom: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+        .team-text-pane p { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
+        
+        .team-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .team-badges span {
+            background: rgba(46, 139, 87, 0.06);
+            color: var(--brand-green);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
             font-size: 0.9rem;
-            border-top: 5px solid var(--secondary);
+            font-weight: 700;
+            border: 1px solid rgba(46, 139, 87, 0.1);
+        }
+
+        /* Facility Contact Multi-Card Panel Set */
+        .location-section-wrapper {
+            padding: 4rem 0 6rem;
+        }
+
+        .facility-layout {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .info-card-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 36px;
+            padding: 4.5rem;
+            box-shadow: 0 30px 70px rgba(0,107,143,0.04);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3.5rem;
+            border-left: 10px solid var(--brand-blue);
+            border-top: 1px solid var(--white);
+        }
+
+        .info-block h3 { color: var(--text-dark); margin-bottom: 1rem; font-size: 1.45rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; }
+        .info-block p { color: var(--text-dark); font-weight: 500; font-size: 1.1rem; }
+        .info-block p .muted { color: var(--text-muted); font-weight: 400; font-size: 1rem; margin-top: 0.35rem; display: block; }
+        .info-block a { color: var(--brand-blue); text-decoration: none; font-weight: 700; border-bottom: 2px solid rgba(0,107,143,0.2); padding-bottom: 2px; transition: var(--transition); }
+        .info-block a:hover { color: var(--brand-green); border-bottom-color: var(--brand-green); }
+
+        /* Social Synchronization Segment */
+        .social-strip { 
+            text-align: center; 
+            max-width: 750px !important;
+        }
+        .social-strip h2 {
+            font-size: 2.6rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        
+        .social-buttons { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+        
+        .social-btn {
+            padding: 1.1rem 2.6rem;
+            border-radius: 18px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            color: var(--white);
+        }
+
+        /* NATIVE APP COLORS */
+        .btn-instagram { 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            box-shadow: 0 12px 28px rgba(220, 39, 67, 0.25); 
+        }
+        
+        .btn-youtube { 
+            background: #FF0000; 
+            box-shadow: 0 12px 28px rgba(255, 0, 0, 0.25); 
+        }
+        
+        .social-btn:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+        /* Modernized Expanded Premium Footer with Interactive Production Credits Area */
+        footer {
+            background: #11222c;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            z-index: 4;
+        }
+
+        footer .copyright-text {
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        /* Sleek Modern Credits Architecture Ribbon */
+        .footer-credits-ribbon {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .credit-node {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .credit-node a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.9rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 1px;
+        }
+
+        .credit-node a:hover {
+            color: var(--brand-yellow);
+            border-bottom-style: solid;
+            border-bottom-color: var(--brand-yellow);
+        }
+
+        .credit-divider {
+            width: 4px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
         }
 
         /* Adaptive Responsiveness Modifications */
         @media (max-width: 1100px) {
-            .nav-container { flex-direction: column; gap: 1rem; text-align: center; }
+            .nav-container { flex-direction: column; gap: 1.25rem; text-align: center; }
+            .hero-text h1 { font-size: 3rem; }
         }
 
         @media (max-width: 968px) {
-            .hero-layout, .media-layout, .team-display, .facility-layout { grid-template-columns: 1fr; }
-            .hero-layout { text-align: center; }
+            .hero-layout, .media-layout, .team-display { grid-template-columns: 1fr; }
+            .hero-layout { text-align: center; gap: 4rem; }
             .hero-text h1 { font-size: 2.8rem; }
-            .team-text-pane { padding: 2.5rem; text-align: center; }
+            .hero-text p { border-left: none; padding-left: 0; }
+            .hero-visual-container { max-width: 360px; height: 360px; }
+            .team-img-pane { height: 380px; }
+            .team-text-pane { padding: 3.5rem 2rem; text-align: center; }
             .team-badges { justify-content: center; }
+            .section-header { text-align: center; margin-bottom: 3.5rem; }
+            .module-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         }
 
         @media (max-width: 640px) {
             .nav-menu { display: none; }
             .gallery-card { grid-template-columns: 1fr; }
-            .gallery-img { height: 150px; }
-            .carousel-arrow { width: 42px; height: 42px; }
+            .gallery-img { height: 160px; }
+            .carousel-arrow { width: 46px; height: 46px; }
             .arrow-left { left: 0.75rem; }
             .arrow-right { right: 0.75rem; }
+            .info-card-panel { padding: 3rem 1.5rem; gap: 2.5rem; }
+            .section-container { margin: 5rem auto; }
+            .footer-credits-ribbon { flex-direction: column; gap: 0.8rem; }
+            .credit-divider { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bubble-decor b1"></div>
+    <div class="bubble-decor b2"></div>
+    <div class="bubble-decor b3"></div>
+
     <header>
         <div class="nav-container">
             <a href="#" class="logo-wrapper">
                 <div class="clinic-logo-box"></div>
-                <span class="logo-text">Nellore Speech and Hearing Rehabilitation Clinic</span>
+                <span class="logo-text">Nellore Speech & <span>Hearing Clinic</span></span>
             </a>
             <nav class="nav-menu">
                 <a href="#conditions">Reference Guide</a>
@@ -671,12 +888,13 @@
                 <p>Advanced cross-disciplinary diagnostic systems & customized milestone targets for children and adults facing communication or hearing barriers.</p>
             </div>
             <div class="hero-visual">
-                <img src="building.jpeg" alt="Nellore Speech and Hearing Clinic Facility Facade Entryway Image">
+                <div class="hero-visual-container">
+                    <img src="building.jpeg" alt="Nellore Speech and Hearing Clinic Facility Facade Entryway Image">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Reference Section: Common Speech & Hearing Problems -->
     <section id="conditions" class="section-container">
         <div class="section-header reveal">
             <h2>Understanding Common Conditions</h2>
@@ -685,10 +903,10 @@
         <div class="problems-grid">
             <div class="problem-card reveal">
                 <div class="problem-icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#006B8F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 26px; height: 26px;">
                         <path d="M11 4.5a4.5 4.5 0 0 1 0 9M11 1a8 8 0 0 1 0 16" opacity="0.4"/>
                         <path d="M16 8a5 5 0 0 0-5-5H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h4a5 5 0 0 0 5-5z"/>
-                        <circle cx="10" cy="9" r="1.5" fill="#0ea5e9"/>
+                        <circle cx="10" cy="9" r="1.5" fill="#FFD700"/>
                     </svg>
                 </div>
                 <h3>Hearing Impairment</h3>
@@ -696,7 +914,7 @@
             </div>
             <div class="problem-card reveal">
                 <div class="problem-icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#006B8F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 26px; height: 26px;">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         <path d="M8 7h8M8 11h5" stroke-width="2" opacity="0.7"/>
                     </svg>
@@ -706,7 +924,7 @@
             </div>
             <div class="problem-card reveal">
                 <div class="problem-icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#006B8F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 26px; height: 26px;">
                         <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
                         <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
                     </svg>
@@ -717,7 +935,6 @@
         </div>
     </section>
 
-    <!-- Clinical Core Modules Matrix Grid -->
     <section id="services" class="section-container">
         <div class="section-header reveal">
             <h2>Specialized Treatment Suites</h2>
@@ -761,7 +978,6 @@
         </div>
     </section>
 
-    <!-- Play-As-Therapy Tools & Equipment Layout -->
     <section id="equipment" class="section-container">
         <div class="section-header reveal">
             <h2>Play-Based Therapeutic Instruments</h2>
@@ -800,7 +1016,6 @@
         </div>
     </section>
 
-    <!-- Interactive Clinical Beneficiaries Carousel Segment -->
     <div class="sessions-media-bg">
         <section id="sessions" class="section-container">
             <div class="section-header reveal">
@@ -842,14 +1057,14 @@
 
                 <div class="gallery-column">
                     <div class="gallery-card">
-                        <div class="gallery-img" style="background-image: url('childplaying.jpeg'); background-color: #cbd5e1;"></div>
+                        <div class="gallery-img" style="background-image: url('childplaying.jpeg');"></div>
                         <div class="gallery-text">
                             <h4>Play-Based Engagement</h4>
                             <p>Utilizing high-interest games to evoke spontaneous linguistic responses from pediatric cases naturally.</p>
                         </div>
                     </div>
                     <div class="gallery-card">
-                        <div class="gallery-img" style="background-image: url('childwithcard.jpeg'); background-color: #cbd5e1;"></div>
+                        <div class="gallery-img" style="background-image: url('childwithcard.jpeg');"></div>
                         <div class="gallery-text">
                             <h4>Visual Accentuation</h4>
                             <p>High-contrast physical tracking materials to help reinforce vocabulary recall pathways.</p>
@@ -860,7 +1075,6 @@
         </section>
     </div>
 
-    <!-- Certified Specialist Banner -->
     <section id="team" class="section-container reveal">
         <div class="team-display">
             <div class="team-img-pane">
@@ -877,49 +1091,28 @@
         </div>
     </section>
 
-    <!-- Geographic & Contact Information Block -->
     <div id="location" class="location-section-wrapper">
         <section class="facility-layout">
-            
-            <div class="info-grid reveal">
+            <div class="info-card-panel reveal">
                 <div class="info-block">
                     <h3>📍 Location Address</h3>
                     <p>Balaji Nagar Road, Balaji Nagar,<br>AC Nagar, Nellore,<br>Andhra Pradesh – 524002</p>
-                    <p style="margin-top: 0.4rem; font-size: 0.95rem; font-style: italic; color: #475569;">Landmark: Behind Balaji Tools</p>
-                    <p style="margin-top: 1rem;">
-                        <!-- 👉 FIXED MAP PIN ROUTING TARGET (REMOVED CONFUSING EXTRA TRAILING SLASH SLUG) -->
-                        <a href="https://www.google.com/maps/place/Nellore+Speech+and+Hearing+Clinic/@14.4515338,79.9889039,17z/data=!4m6!3m5!1s0x3a4c8da3a8ca5151:0xc36a88b50f7f32ee!8m2!3d14.4515338!4d79.9889039!16s%2Fg%2F11w38b_v_m" target="_blank" rel="noopener">
-                            ↗ Open Directly in Google Maps App
-                        </a>
-                    </p>
+                    <span class="muted">Landmark: Behind Balaji Tools</span>
                 </div>
                 <div class="info-block">
                     <h3>🕒 Clinical Schedule Hours</h3>
                     <p>Monday to Saturday: 10:00 AM – 8:30 PM</p>
-                    <p style="margin-top: 0.3rem; color: #b91c1c; font-weight: 700;">Sunday: Office Closed</p>
+                    <span class="muted" style="color: var(--brand-green); font-weight: 700;">Sunday: Closed</span>
                 </div>
                 <div class="info-block">
                     <h3>✉️ Digital Correspondence</h3>
                     <p>Email Inbox: <a href="mailto:speechhear20@gmail.com">speechhear20@gmail.com</a></p>
-                    <p>Emergency Office Line: +91 72074 04238</p>
+                    <span class="muted">Emergency Office Line: +91 72074 04238</span>
                 </div>
             </div>
-
-            <!-- Interactive Map Component -->
-            <div class="map-interactive-wrapper reveal">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.9739527632483!2d79.9889039!3d14.4515338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4c8da3a8ca5151%3A0xc36a88b50f7f32ee!2sNellore%20Speech%20and%20Hearing%20Clinic!5e0!3m2!1sen!2sin!4v1718300000000!5m2!1sen!2sin" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="Nellore Speech and Hearing Clinic Map Location">
-                </iframe>
-            </div>
-
         </section>
     </div>
 
-    <!-- Social Synchronization Segment -->
     <section id="social" class="section-container reveal social-strip">
         <h2>Follow Our Community Outlets</h2>
         <p>Stay updated with developmental tracking ideas, home training workflows, and updates directly from our staff.</p>
@@ -930,13 +1123,25 @@
     </section>
 
     <footer>
-        <p>© 2026 Nellore Speech and Hearing Rehabilitation Clinic. All Rights Reserved. Private Rehabilitation Practices Network.</p>
+        <div class="copyright-text">
+            <p>© 2026 Nellore Speech and Hearing Rehabilitation Clinic. All Rights Reserved. Private Rehabilitation Practices Network.</p>
+        </div>
+        
+        <div class="footer-credits-ribbon">
+            <div class="credit-node">
+                Promoted by <a href="https://www.instagram.com/rahulchakri21?igsh=MTczNXFpOGRsdnlsag==" target="_blank" rel="noopener">Rahul Chakri</a>
+            </div>
+            <div class="credit-divider"></div>
+            <div class="credit-node">
+                Developed by <a href="mailto:abhilashbakkaofficial@gmail.com">Abhilash</a>
+            </div>
+        </div>
     </footer>
 
     <script>
         // Smooth Intersection Observer for Elements
         const elementsToReveal = document.querySelectorAll('.reveal');
-        const observerConf = { root: null, threshold: 0.12, rootMargin: "0px 0px -40px 0px" };
+        const observerConf = { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
         const viewObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
