@@ -91,6 +91,8 @@
         }
 
         nav.main-menu a {
+            display: inline-block;
+            text-align: left;
             text-decoration: none;
             color: rgba(255, 255, 255, 0.95);
             font-weight: 600;
@@ -857,12 +859,425 @@
 
     .main-menu li a {
         display: block;
+        text-align: left;
         padding: 10px;
         background: #f4f4f4; /* Subtle background for tap targets */
         border-radius: 5px;
         text-decoration: none;
         color: #333;
     }
+    }
+
+    /* Appointment Booking & Admin Portal Custom Styling */
+    .hero-cta-container {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .hero-cta-btn {
+        background-color: var(--brand-yellow);
+        color: var(--brand-dark-blue);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 800;
+        padding: 16px 36px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(243, 176, 26, 0.4);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .hero-cta-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(243, 176, 26, 0.5);
+        background-color: #f7ba2a;
+    }
+
+    /* Modal Architecture */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(15, 61, 97, 0.7);
+        backdrop-filter: blur(6px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-container {
+        background: var(--white);
+        width: 100%;
+        max-width: 680px;
+        max-height: 90vh;
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(15, 61, 97, 0.3);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(30, 70, 49, 0.1);
+    }
+
+    .modal-overlay.active .modal-container {
+        transform: scale(1);
+    }
+
+    .modal-container.large-modal {
+        max-width: 1100px;
+    }
+
+    .modal-header {
+        background: var(--brand-dark-blue);
+        color: var(--white);
+        padding: 20px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid var(--brand-yellow);
+    }
+
+    .modal-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .close-btn {
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .close-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .modal-body {
+        padding: 28px;
+        overflow-y: auto;
+    }
+
+    /* Form Design */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    @media (max-width: 600px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-label {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: var(--brand-dark-blue);
+    }
+
+    .form-label span.req {
+        color: #d9381e;
+    }
+
+    .form-input, .form-select, .form-textarea {
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1.5px solid #d0dad3;
+        font-family: inherit;
+        font-size: 0.98rem;
+        color: var(--text-dark);
+        background-color: var(--page-bg);
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+        outline: none;
+        border-color: var(--brand-blue);
+        box-shadow: 0 0 0 3px rgba(26, 95, 150, 0.15);
+        background-color: var(--white);
+    }
+
+    .btn-submit {
+        background-color: var(--brand-blue);
+        color: var(--white);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        padding: 14px 28px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background-color: var(--brand-dark-blue);
+    }
+
+    /* Ticket Confirmation View */
+    .ticket-container {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .ticket-success-icon {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+    }
+
+    .ticket-card {
+        background: var(--brand-light-yellow);
+        border: 2px dashed var(--brand-yellow);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .ticket-ref-box {
+        background: var(--brand-dark-blue);
+        color: var(--white);
+        padding: 12px 18px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    .ticket-ref-box code {
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: var(--brand-yellow);
+        font-family: monospace;
+    }
+
+    .copy-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .copy-btn:hover {
+        background: var(--brand-yellow);
+        color: var(--brand-dark-blue);
+    }
+
+    .ticket-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        font-size: 0.95rem;
+    }
+
+    .ticket-item strong {
+        color: var(--brand-dark-blue);
+        display: block;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Admin Dashboard Specific Styles */
+    .admin-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .stat-card {
+        background: var(--page-bg);
+        border-radius: 10px;
+        padding: 18px;
+        border-left: 4px solid var(--brand-blue);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .stat-card.yellow { border-left-color: var(--brand-yellow); }
+    .stat-card.green { border-left-color: #2e7d32; }
+    .stat-card.blue { border-left-color: var(--brand-blue); }
+    .stat-card.red { border-left-color: #c62828; }
+
+    .stat-num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--brand-dark-blue);
+        line-height: 1.2;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .admin-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .admin-search {
+        flex: 1;
+        min-width: 240px;
+    }
+
+    .filter-pills {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .filter-pill {
+        padding: 8px 14px;
+        border-radius: 20px;
+        border: 1px solid #d0dad3;
+        background: var(--white);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: all 0.2s;
+    }
+
+    .filter-pill.active {
+        background: var(--brand-dark-blue);
+        color: var(--white);
+        border-color: var(--brand-dark-blue);
+    }
+
+    .table-container {
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid #e0e7e1;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        text-align: left;
+    }
+
+    .admin-table th {
+        background: var(--bg-light-tint);
+        color: var(--brand-dark-blue);
+        padding: 14px 16px;
+        font-weight: 700;
+        border-bottom: 2px solid #d0dad3;
+        white-space: nowrap;
+    }
+
+    .admin-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #edf2ee;
+        vertical-align: middle;
+    }
+
+    .admin-table tr:hover {
+        background-color: rgba(248, 244, 232, 0.5);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .status-pending { background: #fff8e1; color: #b78103; border: 1px solid #fce18b; }
+    .status-confirmed { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .status-completed { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .status-cancelled { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+    .action-btn-group {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+
+    .btn-sm:hover { opacity: 0.85; }
+    .btn-confirm { background: #2e7d32; color: white; }
+    .btn-complete { background: #1565c0; color: white; }
+    .btn-cancel { background: #757575; color: white; }
+    .btn-delete { background: #c62828; color: white; }
+    .btn-edit { background: var(--brand-blue); color: white; }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-muted);
     }
     </style>
 </head>
@@ -881,6 +1296,8 @@
                     <li><a href="#services">Clinical Suites</a></li>
                     <li><a href="#equipment">Therapeutic Tools</a></li>
                     <li><a href="#location">Contact</a></li>
+                    <li><a href="javascript:void(0)" onclick="openBookingModal()">Book Appointment</a></li>
+                    <li><a href="javascript:void(0)" onclick="openAdminModal()">Admin Portal</a></li>
                 </ul>
             </nav>
         </div>
@@ -891,6 +1308,14 @@
         <div class="hero-content">
             <h2>Nellore Speech & Hearing Rehabilitation Clinic</h2>
             <p>Empowering children and adults with customized care frameworks across speech, processing, and comprehensive neurodevelopmental paths.</p>
+            <div class="hero-cta-container">
+                <button onclick="openBookingModal()" class="hero-cta-btn">
+                    📅 Schedule an Appointment Online
+                </button>
+                <p style="font-size:0.95rem; color: var(--text-dark); font-weight: 600; background: rgba(255,255,255,0.75); padding: 6px 16px; border-radius: 20px;">
+                    ⚡ Fast Online Booking • Instant Confirmation Ticket • No Waiting Line
+                </p>
+            </div>
         </div>
     </section>
 
@@ -1215,8 +1640,784 @@
         </div>
     </footer>
 
+    <!-- 1. Patient Appointment Booking Modal -->
+    <div id="bookingModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span>📅</span> Book Clinical Appointment
+                </div>
+                <button class="close-btn" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Form View -->
+                <div id="bookingFormView">
+                    <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.95rem;">
+                        Select your requested clinical service and preferred time slot. An instant booking reference receipt will be generated immediately.
+                    </p>
+                    <form id="appointmentForm" onsubmit="handleBookingSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="patientName">Patient Full Name <span class="req">*</span></label>
+                                <input type="text" id="patientName" class="form-input" placeholder="e.g. Ananya Rao" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Phone / WhatsApp Number <span class="req">*</span></label>
+                                <input type="tel" id="phone" class="form-input" placeholder="e.g. +91 98765 43210" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address <span style="font-weight: normal; color: #777;">(Optional)</span></label>
+                                <input type="email" id="email" class="form-input" placeholder="name@example.com">
+                            </div>
+
+                            <div class="form-grid" style="gap: 10px;">
+                                <div class="form-group">
+                                    <label class="form-label" for="age">Age</label>
+                                    <input type="number" id="age" class="form-input" placeholder="e.g. 6" min="0" max="120">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="gender">Gender</label>
+                                    <select id="gender" class="form-select">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Child">Child</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label" for="service">Requested Clinical Service <span class="req">*</span></label>
+                                <select id="service" class="form-select" required>
+                                    <option value="" disabled selected>-- Select Clinical Service --</option>
+                                    <option value="Speech Therapy & Language Milestones">🗣️ Speech Therapy & Language Milestones</option>
+                                    <option value="Audiology & Hearing Assessment">🎧 Audiology & Hearing Assessment</option>
+                                    <option value="Autism Support & Social Interaction">🧩 Autism Support & Social Interaction</option>
+                                    <option value="ADHD Management & Executive Focus">⚡ ADHD Management & Executive Focus</option>
+                                    <option value="Occupational Therapy & Motor Skills">🖐️ Occupational Therapy & Motor Skills</option>
+                                    <option value="Behavioral Therapy & Regulation">🧠 Behavioral Therapy & Regulation</option>
+                                    <option value="Sensory Integration Therapy">🌀 Sensory Integration Therapy</option>
+                                    <option value="Special Education & Academic Support">📚 Special Education & Academic Support</option>
+                                    <option value="General Clinical Consultation">🩺 General Clinical Consultation</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="preferredDate">Preferred Appointment Date <span class="req">*</span></label>
+                                <input type="date" id="preferredDate" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="preferredTimeSlot">Preferred Time Slot <span class="req">*</span></label>
+                                <select id="preferredTimeSlot" class="form-select" required>
+                                    <option value="Morning (10:00 AM - 1:00 PM)">Morning (10:00 AM - 1:00 PM)</option>
+                                    <option value="Afternoon (2:00 PM - 5:00 PM)">Afternoon (2:00 PM - 5:00 PM)</option>
+                                    <option value="Evening (5:00 PM - 8:30 PM)">Evening (5:00 PM - 8:30 PM)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label" for="notes">Primary Concerns / Symptoms <span style="font-weight: normal; color: #777;">(Optional)</span></label>
+                                <textarea id="notes" class="form-textarea" rows="2" placeholder="Brief description of speech/hearing challenges, previous diagnosis, or specific expectations..."></textarea>
+                            </div>
+                        </div>
+
+                        <div id="bookingError" style="display: none; margin-top: 15px; color: #c62828; font-weight: 700; background: #ffebee; padding: 10px 14px; border-radius: 8px;"></div>
+
+                        <button type="submit" id="submitBookingBtn" class="btn-submit">
+                            Confirm & Request Appointment ➔
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Confirmation View -->
+                <div id="bookingSuccessView" class="ticket-container" style="display: none;">
+                    <div class="ticket-success-icon">🎉</div>
+                    <h3 style="color: var(--brand-dark-blue); font-size: 1.5rem; margin-bottom: 8px;">Appointment Request Received!</h3>
+                    <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">
+                        Your appointment request has been recorded in our clinic system. Please save your Reference Number below.
+                    </p>
+
+                    <div class="ticket-card" id="printableTicket">
+                        <div class="ticket-ref-box">
+                            <div>
+                                <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85;">Booking Reference ID</span><br>
+                                <code id="resRefNumber">NSH-2026-XXXX</code>
+                            </div>
+                            <button class="copy-btn" onclick="copyRefNumber()">📋 Copy ID</button>
+                        </div>
+
+                        <div class="ticket-grid">
+                            <div class="ticket-item">
+                                <strong>Patient Name</strong>
+                                <span id="resPatientName">-</span>
+                            </div>
+                            <div class="ticket-item">
+                                <strong>Requested Service</strong>
+                                <span id="resService">-</span>
+                            </div>
+                            <div class="ticket-item">
+                                <strong>Appointment Date</strong>
+                                <span id="resDate">-</span>
+                            </div>
+                            <div class="ticket-item">
+                                <strong>Time Slot</strong>
+                                <span id="resTimeSlot">-</span>
+                            </div>
+                            <div class="ticket-item">
+                                <strong>Phone Number</strong>
+                                <span id="resPhone">-</span>
+                            </div>
+                            <div class="ticket-item">
+                                <strong>Current Status</strong>
+                                <span class="status-badge status-pending" id="resStatus">Pending Confirmation</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(30,70,49,0.2); font-size: 0.88rem; color: var(--text-muted);">
+                            <strong>📍 Clinic Location:</strong> Balaji Nagar Road, Behind Balaji Tools, Nellore - 524002<br>
+                            <strong>📞 Clinic Contact:</strong> +91 72074 04238
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                        <button onclick="notifyClinicWhatsApp()" class="read-more-btn" style="margin: 0; background: #25d366; color: white; border-color: #25d366; font-weight: 700;">
+                            📲 Send Booking via WhatsApp
+                        </button>
+                        <button onclick="printReceipt()" class="read-more-btn" style="margin: 0; background: var(--brand-blue); color: white; border-color: var(--brand-blue);">
+                            🖨️ Print / Save Receipt
+                        </button>
+                        <button onclick="resetBookingForm()" class="read-more-btn" style="margin: 0;">
+                            ➕ Book Another
+                        </button>
+                        <button onclick="closeBookingModal()" class="read-more-btn" style="margin: 0; border-color: #999; color: #555;">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Admin Login Modal -->
+    <div id="adminLoginModal" class="modal-overlay">
+        <div class="modal-container" style="max-width: 440px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span>🔒</span> Admin Portal Login
+                </div>
+                <button class="close-btn" onclick="closeAdminLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.92rem;">
+                    Access clinic appointment records, update booking statuses, and manage patient requests.
+                </p>
+
+                <form onsubmit="handleAdminLogin(event)">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label class="form-label" for="adminUsername">Username</label>
+                        <input type="text" id="adminUsername" class="form-input" placeholder="admin" required value="admin">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label" for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" class="form-input" placeholder="clinic123" required value="clinic123">
+                    </div>
+
+                    <div id="adminLoginError" style="display: none; margin-bottom: 15px; color: #c62828; font-weight: 700; background: #ffebee; padding: 10px; border-radius: 8px; font-size: 0.9rem;"></div>
+
+                    <button type="submit" id="adminLoginBtn" class="btn-submit">
+                        🔑 Login to Admin Dashboard
+                    </button>
+                </form>
+
+                <p style="margin-top: 18px; font-size: 0.82rem; color: #888; text-align: center;">
+                    Default Credentials: Username: <code style="background: #eee; padding: 2px 6px; border-radius: 4px;">admin</code> | Password: <code style="background: #eee; padding: 2px 6px; border-radius: 4px;">clinic123</code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Admin Dashboard Modal (Full Management Suite) -->
+    <div id="adminDashboardModal" class="modal-overlay">
+        <div class="modal-container large-modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span>🏥</span> Clinic Appointments Dashboard
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 0.9rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px;" id="adminLoggedUser">Admin</span>
+                    <button class="close-btn" onclick="handleAdminLogout()" title="Logout" style="font-size: 1rem; width: auto; height: auto; padding: 6px 12px; border-radius: 6px; gap: 4px;">
+                        🚪 Logout
+                    </button>
+                    <button class="close-btn" onclick="closeAdminDashboardModal()">&times;</button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <!-- Statistics Cards -->
+                <div class="admin-stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-num" id="statTotal">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-num" id="statPending">0</div>
+                        <div class="stat-label">Pending Confirmation</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-num" id="statConfirmed">0</div>
+                        <div class="stat-label">Confirmed</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-num" id="statCompleted">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-num" id="statCancelled">0</div>
+                        <div class="stat-label">Cancelled</div>
+                    </div>
+                </div>
+
+                <!-- Toolbar & Filters -->
+                <div class="admin-toolbar">
+                    <div class="admin-search">
+                        <input type="text" id="adminSearchInput" class="form-input" placeholder="🔍 Search patient name, phone, ref ID, service..." oninput="filterAppointments()">
+                    </div>
+
+                    <div class="filter-pills">
+                        <button class="filter-pill active" onclick="setFilterStatus('All', this)">All</button>
+                        <button class="filter-pill" onclick="setFilterStatus('Pending', this)">⏳ Pending</button>
+                        <button class="filter-pill" onclick="setFilterStatus('Confirmed', this)">✅ Confirmed</button>
+                        <button class="filter-pill" onclick="setFilterStatus('Completed', this)">🏥 Completed</button>
+                        <button class="filter-pill" onclick="setFilterStatus('Cancelled', this)">❌ Cancelled</button>
+                    </div>
+
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-sm btn-edit" onclick="loadAdminAppointments()" style="padding: 10px 14px;">🔄 Refresh</button>
+                        <button class="btn-sm btn-confirm" onclick="exportAppointmentsCSV()" style="padding: 10px 14px;">📊 Export CSV</button>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Ref ID</th>
+                                <th>Patient Details</th>
+                                <th>Requested Service</th>
+                                <th>Appointment Date & Slot</th>
+                                <th>Status</th>
+                                <th>Admin Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsTableBody">
+                            <!-- Rows injected dynamically -->
+                        </tbody>
+                    </table>
+                    <div id="emptyTableMessage" class="empty-state" style="display: none;">
+                        <p style="font-size: 1.1rem; font-weight: 700;">No appointments found</p>
+                        <p style="font-size: 0.9rem;">No appointment records match the selected filter or search term.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Interactive Component Script Controls Logic -->
     <script>
+        // Set min date for appointment booking date picker to today
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('preferredDate');
+            if (dateInput) {
+                dateInput.min = today;
+                // Default preferred date to tomorrow
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+            }
+        });
+
+        // Global State variables
+        let currentAppointmentsList = [];
+        let activeStatusFilter = 'All';
+
+        // Modal Handlers
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('bookingFormView').style.display = 'block';
+            document.getElementById('bookingSuccessView').style.display = 'none';
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+        }
+
+        function openAdminModal() {
+            const token = localStorage.getItem('nsh_admin_token');
+            if (token) {
+                // Verify token with server
+                fetch('/api/admin/verify', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        openAdminDashboardModal();
+                    } else {
+                        localStorage.removeItem('nsh_admin_token');
+                        document.getElementById('adminLoginModal').classList.add('active');
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('adminLoginModal').classList.add('active');
+                });
+            } else {
+                document.getElementById('adminLoginModal').classList.add('active');
+            }
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('adminLoginModal').classList.remove('active');
+        }
+
+        function openAdminDashboardModal() {
+            document.getElementById('adminLoginModal').classList.remove('active');
+            document.getElementById('adminDashboardModal').classList.add('active');
+            loadAdminAppointments();
+        }
+
+        function closeAdminDashboardModal() {
+            document.getElementById('adminDashboardModal').classList.remove('active');
+        }
+
+        function handleAdminLogout() {
+            localStorage.removeItem('nsh_admin_token');
+            closeAdminDashboardModal();
+            alert('Logged out successfully.');
+        }
+
+        // Handle Public Booking Submission
+        async function handleBookingSubmit(event) {
+            event.preventDefault();
+            const errorDiv = document.getElementById('bookingError');
+            const submitBtn = document.getElementById('submitBookingBtn');
+            errorDiv.style.display = 'none';
+
+            const patientName = document.getElementById('patientName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const service = document.getElementById('service').value;
+            const preferredDate = document.getElementById('preferredDate').value;
+            const preferredTimeSlot = document.getElementById('preferredTimeSlot').value;
+            const notes = document.getElementById('notes').value.trim();
+
+            if (!patientName || !phone || !service || !preferredDate) {
+                errorDiv.textContent = 'Please fill in all required fields (Name, Phone, Service, Date).';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Submitting Request...';
+
+            try {
+                const response = await fetch('/api/appointments', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        patientName, phone, email, age, gender, service, preferredDate, preferredTimeSlot, notes
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.appointment) {
+                    const appt = result.appointment;
+                    document.getElementById('resRefNumber').textContent = appt.refNumber;
+                    document.getElementById('resPatientName').textContent = appt.patientName;
+                    document.getElementById('resService').textContent = appt.service;
+                    document.getElementById('resDate').textContent = appt.preferredDate;
+                    document.getElementById('resTimeSlot').textContent = appt.preferredTimeSlot;
+                    document.getElementById('resPhone').textContent = appt.phone;
+                    
+                    document.getElementById('bookingFormView').style.display = 'none';
+                    document.getElementById('bookingSuccessView').style.display = 'block';
+                } else {
+                    errorDiv.textContent = result.message || 'Failed to submit booking. Please try again.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Network error while submitting. Please check connection.';
+                errorDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Confirm & Request Appointment ➔';
+            }
+        }
+
+        function resetBookingForm() {
+            document.getElementById('appointmentForm').reset();
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('preferredDate').value = tomorrow.toISOString().split('T')[0];
+            document.getElementById('bookingFormView').style.display = 'block';
+            document.getElementById('bookingSuccessView').style.display = 'none';
+        }
+
+        function copyRefNumber() {
+            const refText = document.getElementById('resRefNumber').textContent;
+            navigator.clipboard.writeText(refText).then(() => {
+                alert('Booking Reference ID copied: ' + refText);
+            }).catch(() => {
+                alert('Reference ID: ' + refText);
+            });
+        }
+
+        function notifyClinicWhatsApp() {
+            const ref = document.getElementById('resRefNumber').textContent;
+            const name = document.getElementById('resPatientName').textContent;
+            const service = document.getElementById('resService').textContent;
+            const date = document.getElementById('resDate').textContent;
+            const slot = document.getElementById('resTimeSlot').textContent;
+            const phone = document.getElementById('resPhone').textContent;
+            
+            const message = `Hello Nellore Speech & Hearing Rehabilitation Clinic,\n\nI have requested an appointment online:\n• Booking Ref: ${ref}\n• Patient Name: ${name}\n• Service: ${service}\n• Requested Date: ${date}\n• Time Slot: ${slot}\n• Phone: ${phone}\n\nPlease confirm my appointment slot. Thank you!`;
+            
+            const url = `https://wa.me/917207404238?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function openPatientWhatsApp(id) {
+            const appt = currentAppointmentsList.find(a => a.id === id);
+            if (!appt) return;
+            let cleanPhone = appt.phone.replace(/[^0-9]/g, '');
+            if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+            
+            const message = `Hello ${appt.patientName},\n\nGreetings from Nellore Speech & Hearing Rehabilitation Clinic!\n\nRegarding your appointment request (Ref: ${appt.refNumber}):\n• Service: ${appt.service}\n• Date: ${appt.preferredDate}\n• Time Slot: ${appt.preferredTimeSlot}\n• Status: ${appt.status}\n\nClinic Location: Balaji Nagar Road, Behind Balaji Tools, Nellore.\nPhone: +91 72074 04238.`;
+            
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function printReceipt() {
+            const printContent = document.getElementById('printableTicket').innerHTML;
+            const originalBody = document.body.innerHTML;
+            
+            const printWindow = window.open('', '', 'width=700,height=600');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Appointment Receipt - Nellore Speech & Hearing Rehabilitation Clinic</title>
+                    <style>
+                        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+                        .ticket-card { border: 2px dashed #f3b01a; padding: 20px; border-radius: 10px; background: #f8f4e8; }
+                        .ticket-ref-box { background: #0f3d61; color: white; padding: 12px; border-radius: 6px; margin-bottom: 15px; }
+                        .ticket-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                        .ticket-item strong { display: block; font-size: 0.8rem; text-transform: uppercase; color: #0f3d61; }
+                        .copy-btn { display: none; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Nellore Speech & Hearing Rehabilitation Clinic</h2>
+                    <p>Clinical Appointment Confirmation Slip</p>
+                    <hr>
+                    ${printContent}
+                    <br><p style="font-size:0.8rem; color:#666;">Generated on ${new Date().toLocaleString()}</p>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 300);
+        }
+
+        // Handle Admin Login Submission
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+            const errorDiv = document.getElementById('adminLoginError');
+            const btn = document.getElementById('adminLoginBtn');
+            errorDiv.style.display = 'none';
+
+            btn.disabled = true;
+            btn.innerHTML = 'Authenticating...';
+
+            try {
+                const res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await res.json();
+                if (data.success && data.token) {
+                    localStorage.setItem('nsh_admin_token', data.token);
+                    document.getElementById('adminLoggedUser').textContent = data.username || 'Admin';
+                    openAdminDashboardModal();
+                } else {
+                    errorDiv.textContent = data.message || 'Invalid admin credentials.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Server connection error. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🔑 Login to Admin Dashboard';
+            }
+        }
+
+        // Load Admin Appointments List
+        async function loadAdminAppointments() {
+            const token = localStorage.getItem('nsh_admin_token');
+            if (!token) return;
+
+            try {
+                const res = await fetch('/api/appointments', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success && Array.isArray(data.appointments)) {
+                    currentAppointmentsList = data.appointments;
+                    renderAdminDashboard();
+                } else if (res.status === 401) {
+                    localStorage.removeItem('nsh_admin_token');
+                    closeAdminDashboardModal();
+                    openAdminModal();
+                }
+            } catch (err) {
+                console.error('Failed to load appointments:', err);
+            }
+        }
+
+        // Render Admin Dashboard Table & Stats
+        function renderAdminDashboard() {
+            // Stats calculations
+            const total = currentAppointmentsList.length;
+            const pending = currentAppointmentsList.filter(a => a.status === 'Pending').length;
+            const confirmed = currentAppointmentsList.filter(a => a.status === 'Confirmed').length;
+            const completed = currentAppointmentsList.filter(a => a.status === 'Completed').length;
+            const cancelled = currentAppointmentsList.filter(a => a.status === 'Cancelled').length;
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statPending').textContent = pending;
+            document.getElementById('statConfirmed').textContent = confirmed;
+            document.getElementById('statCompleted').textContent = completed;
+            document.getElementById('statCancelled').textContent = cancelled;
+
+            filterAppointments();
+        }
+
+        function setFilterStatus(status, btnElement) {
+            activeStatusFilter = status;
+            document.querySelectorAll('.filter-pill').forEach(pill => pill.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+            filterAppointments();
+        }
+
+        function filterAppointments() {
+            const searchTerm = document.getElementById('adminSearchInput').value.toLowerCase().trim();
+            const tbody = document.getElementById('appointmentsTableBody');
+            const emptyMsg = document.getElementById('emptyTableMessage');
+
+            tbody.innerHTML = '';
+
+            const filtered = currentAppointmentsList.filter(item => {
+                const matchesStatus = (activeStatusFilter === 'All') || (item.status === activeStatusFilter);
+                const matchesSearch = !searchTerm || 
+                    item.refNumber.toLowerCase().includes(searchTerm) ||
+                    item.patientName.toLowerCase().includes(searchTerm) ||
+                    item.phone.toLowerCase().includes(searchTerm) ||
+                    item.service.toLowerCase().includes(searchTerm) ||
+                    (item.email && item.email.toLowerCase().includes(searchTerm));
+                
+                return matchesStatus && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                emptyMsg.style.display = 'block';
+                return;
+            } else {
+                emptyMsg.style.display = 'none';
+            }
+
+            filtered.forEach(appt => {
+                const tr = document.createElement('tr');
+                
+                let badgeClass = 'status-pending';
+                if (appt.status === 'Confirmed') badgeClass = 'status-confirmed';
+                if (appt.status === 'Completed') badgeClass = 'status-completed';
+                if (appt.status === 'Cancelled') badgeClass = 'status-cancelled';
+
+                tr.innerHTML = `
+                    <td>
+                        <strong style="color: var(--brand-dark-blue); font-family: monospace;">${appt.refNumber}</strong><br>
+                        <span style="font-size: 0.78rem; color: #777;">${new Date(appt.createdAt).toLocaleDateString()}</span>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(appt.patientName)}</strong> 
+                        ${appt.age ? `<span style="font-size: 0.8rem; color: #666;">(${appt.age} yrs / ${escapeHtml(appt.gender)})</span>` : ''}<br>
+                        <a href="tel:${escapeHtml(appt.phone)}" style="color: var(--brand-blue); text-decoration: none; font-weight: 600;">📞 ${escapeHtml(appt.phone)}</a>
+                        ${appt.email ? `<br><span style="font-size: 0.8rem; color: #555;">✉️ ${escapeHtml(appt.email)}</span>` : ''}
+                    </td>
+                    <td style="max-width: 200px;">
+                        <strong>${escapeHtml(appt.service)}</strong>
+                        ${appt.notes ? `<p style="font-size: 0.82rem; color: #555; margin-top: 4px; font-style: italic;">"${escapeHtml(appt.notes)}"</p>` : ''}
+                    </td>
+                    <td>
+                        📅 <strong>${escapeHtml(appt.preferredDate)}</strong><br>
+                        ⏰ <span style="font-size: 0.85rem; color: #444;">${escapeHtml(appt.preferredTimeSlot)}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${badgeClass}">${appt.status}</span>
+                    </td>
+                    <td style="max-width: 180px;">
+                        <span id="noteText_${appt.id}" style="font-size: 0.85rem; color: #333;">${appt.adminNotes ? escapeHtml(appt.adminNotes) : '<em>No notes</em>'}</span>
+                        <br>
+                        <button class="btn-sm btn-edit" style="margin-top: 4px; font-size: 0.75rem; padding: 2px 6px;" onclick="promptAdminNote('${appt.id}')">✏️ Note</button>
+                    </td>
+                    <td>
+                        <div class="action-btn-group">
+                            <button class="btn-sm" style="background: #25d366; color: white; font-weight: 700;" title="Send WhatsApp Message to Patient" onclick="openPatientWhatsApp('${appt.id}')">📲 WhatsApp</button>
+                            ${appt.status !== 'Confirmed' ? `<button class="btn-sm btn-confirm" title="Mark Confirmed" onclick="updateAppointmentStatus('${appt.id}', 'Confirmed')">✓ Confirm</button>` : ''}
+                            ${appt.status !== 'Completed' ? `<button class="btn-sm btn-complete" title="Mark Completed" onclick="updateAppointmentStatus('${appt.id}', 'Completed')">✔ Complete</button>` : ''}
+                            ${appt.status !== 'Cancelled' ? `<button class="btn-sm btn-cancel" title="Cancel Booking" onclick="updateAppointmentStatus('${appt.id}', 'Cancelled')">✖ Cancel</button>` : ''}
+                            <button class="btn-sm btn-delete" title="Delete Entry" onclick="deleteAppointment('${appt.id}')">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function updateAppointmentStatus(id, newStatus) {
+            const token = localStorage.getItem('nsh_admin_token');
+            if (!token) return;
+
+            try {
+                const res = await fetch(`/api/appointments/${id}`, {
+                    method: 'PATCH',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadAdminAppointments();
+                } else {
+                    alert('Failed to update status: ' + data.message);
+                }
+            } catch (err) {
+                alert('Server error updating status.');
+            }
+        }
+
+        async function promptAdminNote(id) {
+            const appt = currentAppointmentsList.find(a => a.id === id);
+            const currentNote = appt ? appt.adminNotes || '' : '';
+            const newNote = prompt('Add/Edit Admin Note for patient ' + (appt ? appt.patientName : '') + ':', currentNote);
+
+            if (newNote === null) return; // User cancelled
+
+            const token = localStorage.getItem('nsh_admin_token');
+            if (!token) return;
+
+            try {
+                const res = await fetch(`/api/appointments/${id}`, {
+                    method: 'PATCH',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({ adminNotes: newNote.trim() })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadAdminAppointments();
+                }
+            } catch (err) {
+                alert('Server error saving note.');
+            }
+        }
+
+        async function deleteAppointment(id) {
+            if (!confirm('Are you sure you want to permanently delete this appointment record?')) return;
+
+            const token = localStorage.getItem('nsh_admin_token');
+            if (!token) return;
+
+            try {
+                const res = await fetch(`/api/appointments/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadAdminAppointments();
+                } else {
+                    alert('Error deleting: ' + data.message);
+                }
+            } catch (err) {
+                alert('Server error deleting record.');
+            }
+        }
+
+        function exportAppointmentsCSV() {
+            if (!currentAppointmentsList.length) {
+                alert('No appointment records to export.');
+                return;
+            }
+
+            const headers = ['Ref Number', 'Patient Name', 'Phone', 'Email', 'Age', 'Gender', 'Service', 'Preferred Date', 'Time Slot', 'Status', 'Patient Notes', 'Admin Notes', 'Booked At'];
+            const rows = currentAppointmentsList.map(a => [
+                `"${a.refNumber || ''}"`,
+                `"${(a.patientName || '').replace(/"/g, '""')}"`,
+                `"${a.phone || ''}"`,
+                `"${a.email || ''}"`,
+                `"${a.age || ''}"`,
+                `"${a.gender || ''}"`,
+                `"${(a.service || '').replace(/"/g, '""')}"`,
+                `"${a.preferredDate || ''}"`,
+                `"${a.preferredTimeSlot || ''}"`,
+                `"${a.status || ''}"`,
+                `"${(a.notes || '').replace(/"/g, '""')}"`,
+                `"${(a.adminNotes || '').replace(/"/g, '""')}"`,
+                `"${a.createdAt || ''}"`
+            ]);
+
+            const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `Nellore_Clinic_Appointments_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         // Smooth Intersection Observer Animations
         const elementsToReveal = document.querySelectorAll('.reveal');
         const observerConf = { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
@@ -1234,6 +2435,7 @@
         document.querySelectorAll('.read-more-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const card = btn.closest('.module-card');
+                if(!card) return;
                 const isExpanded = card.classList.toggle('card-expanded');
                 btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
                 btn.innerHTML = isExpanded ? 
@@ -1243,37 +2445,45 @@
 
         // Beneficiaries Component Slider Script Mechanics
         const track = document.getElementById('carouselTrack');
-        const slides = Array.from(track.children);
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const dotsContainer = document.getElementById('carouselDots');
-        const dots = Array.from(dotsContainer.children);
-        let activeIdx = 0;
+        if (track) {
+            const slides = Array.from(track.children);
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const dotsContainer = document.getElementById('carouselDots');
+            const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+            let activeIdx = 0;
 
-        const moveSliderTo = (targetIdx) => {
-            track.style.transform = `translateX(-${targetIdx * 100}%)`;
-            dots.forEach(d => d.classList.remove('active'));
-            dots[targetIdx].classList.add('active');
-            activeIdx = targetIdx;
-        };
+            const moveSliderTo = (targetIdx) => {
+                track.style.transform = `translateX(-${targetIdx * 100}%)`;
+                dots.forEach(d => d.classList.remove('active'));
+                if (dots[targetIdx]) dots[targetIdx].classList.add('active');
+                activeIdx = targetIdx;
+            };
 
-        nextBtn.addEventListener('click', () => {
-            let index = activeIdx + 1;
-            if (index >= slides.length) index = 0;
-            moveSliderTo(index);
-        });
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    let index = activeIdx + 1;
+                    if (index >= slides.length) index = 0;
+                    moveSliderTo(index);
+                });
+            }
 
-        prevBtn.addEventListener('click', () => {
-            let index = activeIdx - 1;
-            if (index < 0) index = slides.length - 1;
-            moveSliderTo(index);
-        });
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    let index = activeIdx - 1;
+                    if (index < 0) index = slides.length - 1;
+                    moveSliderTo(index);
+                });
+            }
 
-        dotsContainer.addEventListener('click', e => {
-            const pinpointDot = e.target.closest('.dot');
-            if(!pinpointDot) return;
-            moveSliderTo(parseInt(pinpointDot.getAttribute('data-index')));
-        });
+            if (dotsContainer) {
+                dotsContainer.addEventListener('click', e => {
+                    const pinpointDot = e.target.closest('.dot');
+                    if(!pinpointDot) return;
+                    moveSliderTo(parseInt(pinpointDot.getAttribute('data-index')));
+                });
+            }
+        }
     </script>
 </body>
 </html>
