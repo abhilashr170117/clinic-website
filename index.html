@@ -801,15 +801,82 @@
         /* ADD YOUR MOBILE FIXES HERE */
     /* Responsive Mobile Optimization */
 @media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+    }
+
     /* 1. Header adjustment */
     .nav-container {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
         text-align: center;
+        padding: 12px 15px;
     }
     
     .brand-logo-area {
         flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .brand-logo-area img {
+        height: 48px;
+        width: auto;
+    }
+
+    .brand-logo-area h1 {
+        font-size: 1.15rem;
+        color: #ffffff;
+        text-align: center;
+        margin: 0;
+        line-height: 1.35;
+    }
+
+    .main-menu {
+        width: 100%;
+    }
+
+    .main-menu ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-menu li {
+        margin: 0;
+    }
+
+    .main-menu li a {
+        display: inline-block;
+        text-align: center;
+        padding: 7px 13px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+    }
+
+    .main-menu li a:hover,
+    .main-menu li a:active {
+        background: rgba(255, 255, 255, 0.3);
+        color: #ffffff !important;
+    }
+
+    /* Special highlight for Book Appointment on mobile */
+    .main-menu li a[onclick*="openBookingModal"] {
+        background: var(--brand-yellow) !important;
+        color: var(--brand-dark-blue) !important;
+        border: none !important;
+        font-weight: 700 !important;
     }
 
     /* 2. Stack Grid Layouts */
@@ -849,24 +916,7 @@
     .section-container {
         padding: 50px 20px;
     }
-    .main-menu ul {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* This forces a clean 2x2 grid */
-        gap: 10px;
-        list-style: none;
-        padding: 0;
-    }
-
-    .main-menu li a {
-        display: block;
-        text-align: left;
-        padding: 10px;
-        background: #f4f4f4; /* Subtle background for tap targets */
-        border-radius: 5px;
-        text-decoration: none;
-        color: #333;
-    }
-    }
+}
 
     /* Appointment Booking & Admin Portal Custom Styling */
     .hero-cta-container {
