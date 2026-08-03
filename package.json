@@ -1,0 +1,14 @@
+{
+  "name": "clinic-website",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'No build step required for static site'",
+    "lint": "echo 'No lint step required for static site'"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
