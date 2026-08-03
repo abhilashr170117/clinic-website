@@ -1868,12 +1868,12 @@
                 <form onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom: 16px;">
                         <label class="form-label" for="adminUsername">Username</label>
-                        <input type="text" id="adminUsername" class="form-input" placeholder="admin" required value="admin">
+                        <input type="text" id="adminUsername" class="form-input" placeholder="Enter Admin Username" required value="">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label class="form-label" for="adminPassword">Password</label>
-                        <input type="password" id="adminPassword" class="form-input" placeholder="clinic123" required value="clinic123">
+                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter Admin Password" required value="">
                     </div>
 
                     <div id="adminLoginError" style="display: none; margin-bottom: 15px; color: #c62828; font-weight: 700; background: #ffebee; padding: 10px; border-radius: 8px; font-size: 0.9rem;"></div>
@@ -1882,10 +1882,6 @@
                         🔑 Login to Admin Dashboard
                     </button>
                 </form>
-
-                <p style="margin-top: 18px; font-size: 0.82rem; color: #888; text-align: center;">
-                    Default Credentials: Username: <code style="background: #eee; padding: 2px 6px; border-radius: 4px;">admin</code> | Password: <code style="background: #eee; padding: 2px 6px; border-radius: 4px;">clinic123</code>
-                </p>
             </div>
         </div>
     </div>
@@ -2008,6 +2004,13 @@
             document.getElementById('bookingModal').classList.remove('active');
         }
 
+        function showAdminLoginModal() {
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminLoginError').style.display = 'none';
+            document.getElementById('adminLoginModal').classList.add('active');
+        }
+
         function openAdminModal() {
             const token = localStorage.getItem('nsh_admin_token');
             if (token) {
@@ -2021,14 +2024,14 @@
                         openAdminDashboardModal();
                     } else {
                         localStorage.removeItem('nsh_admin_token');
-                        document.getElementById('adminLoginModal').classList.add('active');
+                        showAdminLoginModal();
                     }
                 })
                 .catch(() => {
-                    document.getElementById('adminLoginModal').classList.add('active');
+                    showAdminLoginModal();
                 });
             } else {
-                document.getElementById('adminLoginModal').classList.add('active');
+                showAdminLoginModal();
             }
         }
 
