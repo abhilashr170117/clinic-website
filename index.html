@@ -1998,19 +1998,19 @@
         let activeStatusFilter = 'All';
 
         // Code-Level Supabase Real-Time Cloud Sync Configuration
-        // Connected Project: https://iloorpteokebshvjowwe.supabase.co
-        const SUPABASE_CONFIG = {
-            url: window.SUPABASE_URL || "https://iloorpteokebshvjowwe.supabase.co",
-            anonKey: window.SUPABASE_ANON_KEY || localStorage.getItem('nsh_supabase_key') || ""
-        };
+        // Project ID: iloorpteokebshvjowwe
+        // Project REST API URL: https://iloorpteokebshvjowwe.supabase.co/rest/v1/
+        const SUPABASE_URL = "https://iloorpteokebshvjowwe.supabase.co";
+        // Paste your Supabase Anon Public Key below (from Supabase Dashboard -> Project Settings -> API)
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || localStorage.getItem('nsh_supabase_key') || "sb_publishable_3tYed7S8jwH9p2K7WjiNzg_2Z6eTQtk";
 
         let supabaseClient = null;
 
         function getSupabaseClient() {
             if (supabaseClient) return supabaseClient;
-            const url = SUPABASE_CONFIG.url || localStorage.getItem('nsh_supabase_url') || '';
-            const key = SUPABASE_CONFIG.anonKey || localStorage.getItem('nsh_supabase_key') || '';
-            if (url && key && window.supabase) {
+            const url = window.SUPABASE_URL || SUPABASE_URL;
+            const key = window.SUPABASE_ANON_KEY || SUPABASE_ANON_KEY || localStorage.getItem('nsh_supabase_key') || '';
+            if (url && key && key !== "YOUR_SUPABASE_ANON_KEY_HERE" && window.supabase) {
                 try {
                     supabaseClient = window.supabase.createClient(url, key);
                     return supabaseClient;
