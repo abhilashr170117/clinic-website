@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-import { createClient } from '@supabase/supabase-js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,20 +12,6 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
-
-// Supabase server client
-const SUPABASE_URL = process.env.SUPABASE_URL || "https://iloorpteokebshvjowwe.supabase.co";
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
-
-let supabase = null;
-if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-  try {
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    console.log('Server Supabase client initialized for:', SUPABASE_URL);
-  } catch (err) {
-    console.error('Server Supabase init failed:', err);
-  }
-}
 
 // Data persistence setup
 const DATA_DIR = path.join(__dirname, 'data');
@@ -78,7 +63,7 @@ function requireAdminAuth(req, res, next) {
 }
 
 // Public API: Book an appointment
-app.post('/api/appointments', async (req, res) => {
+app.post('/api/appointments', (req, res) => {
   const { patientName, phone, email, age, gender, service, preferredDate, preferredTimeSlot, notes } = req.body;
 
   if (!patientName || !phone || !service || !preferredDate) {
@@ -115,14 +100,6 @@ app.post('/api/appointments', async (req, res) => {
   appointments.unshift(newAppointment);
   saveAppointments(appointments);
 
-  if (supabase) {
-    try {
-      await supabase.from('appointments').upsert([newAppointment]);
-    } catch (err) {
-      console.error('Supabase server insert error:', err);
-    }
-  }
-
   res.status(201).json({
     success: true,
     message: 'Appointment request submitted successfully!',
@@ -157,18 +134,7 @@ app.get('/api/admin/verify', requireAdminAuth, (req, res) => {
 });
 
 // Admin API: Get all appointments
-app.get('/api/appointments', requireAdminAuth, async (req, res) => {
-  if (supabase) {
-    try {
-      const { data, error } = await supabase.from('appointments').select('*').order('createdAt', { ascending: false });
-      if (!error && Array.isArray(data)) {
-        return res.json({ success: true, appointments: data });
-      }
-    } catch (err) {
-      console.error('Supabase fetch error:', err);
-    }
-  }
-
+app.get('/api/appointments', requireAdminAuth, (req, res) => {
   const appointments = getAppointments();
   res.json({
     success: true,
@@ -177,21 +143,9 @@ app.get('/api/appointments', requireAdminAuth, async (req, res) => {
 });
 
 // Admin API: Update appointment status/notes
-app.patch('/api/appointments/:id', requireAdminAuth, async (req, res) => {
+app.patch('/api/appointments/:id', requireAdminAuth, (req, res) => {
   const { id } = req.params;
   const { status, adminNotes, preferredTimeSlot } = req.body;
-
-  if (supabase) {
-    try {
-      const updates = {};
-      if (status) updates.status = status;
-      if (adminNotes !== undefined) updates.adminNotes = adminNotes;
-      if (preferredTimeSlot !== undefined) updates.preferredTimeSlot = preferredTimeSlot;
-      await supabase.from('appointments').update(updates).eq('id', id);
-    } catch (err) {
-      console.error('Supabase update error:', err);
-    }
-  }
 
   const appointments = getAppointments();
   const index = appointments.findIndex(a => a.id === id);
@@ -222,17 +176,8 @@ app.patch('/api/appointments/:id', requireAdminAuth, async (req, res) => {
 });
 
 // Admin API: Delete appointment
-app.delete('/api/appointments/:id', requireAdminAuth, async (req, res) => {
+app.delete('/api/appointments/:id', requireAdminAuth, (req, res) => {
   const { id } = req.params;
-
-  if (supabase) {
-    try {
-      await supabase.from('appointments').delete().eq('id', id);
-    } catch (err) {
-      console.error('Supabase delete error:', err);
-    }
-  }
-
   let appointments = getAppointments();
   const initialLength = appointments.length;
 
