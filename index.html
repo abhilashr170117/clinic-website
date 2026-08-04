@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Supabase JS Client for Realtime Cross-Device Database Sync -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         /* Vibrant Aesthetic Palette: Deep Emerald, Royal Blue, Marigold, Soft Ivory */
         :root {
@@ -1927,6 +1930,7 @@
                     </div>
                 </div>
 
+
                 <!-- Toolbar & Filters -->
                 <div class="admin-toolbar">
                     <div class="admin-search">
@@ -1992,6 +1996,30 @@
         // Global State variables
         let currentAppointmentsList = [];
         let activeStatusFilter = 'All';
+
+        // Code-Level Supabase Real-Time Cloud Sync Configuration
+        // Connected Project: https://iloorpteokebshvjowwe.supabase.co
+        const SUPABASE_CONFIG = {
+            url: window.SUPABASE_URL || "https://iloorpteokebshvjowwe.supabase.co",
+            anonKey: window.SUPABASE_ANON_KEY || localStorage.getItem('nsh_supabase_key') || ""
+        };
+
+        let supabaseClient = null;
+
+        function getSupabaseClient() {
+            if (supabaseClient) return supabaseClient;
+            const url = SUPABASE_CONFIG.url || localStorage.getItem('nsh_supabase_url') || '';
+            const key = SUPABASE_CONFIG.anonKey || localStorage.getItem('nsh_supabase_key') || '';
+            if (url && key && window.supabase) {
+                try {
+                    supabaseClient = window.supabase.createClient(url, key);
+                    return supabaseClient;
+                } catch (e) {
+                    console.error('Supabase initialization error:', e);
+                }
+            }
+            return null;
+        }
 
         // Modal Handlers
         function openBookingModal() {
@@ -2150,6 +2178,16 @@
                 saveLocalAppointments(localList);
             }
 
+            // Sync with Supabase Cloud Database if configured (enables real-time cross-device sync)
+            const spClient = getSupabaseClient();
+            if (spClient) {
+                try {
+                    await spClient.from('appointments').upsert([appt]);
+                } catch (spErr) {
+                    console.error('Supabase booking sync error:', spErr);
+                }
+            }
+
             document.getElementById('resRefNumber').textContent = appt.refNumber;
             document.getElementById('resPatientName').textContent = appt.patientName;
             document.getElementById('resService').textContent = appt.service;
@@ -2294,33 +2332,60 @@
 
         // Load Admin Appointments List
         async function loadAdminAppointments() {
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
-
-            try {
-                const res = await fetch('/api/appointments', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && Array.isArray(data.appointments)) {
-                        currentAppointmentsList = data.appointments;
-                        // Merge local items
+            // 1. Try Supabase Cloud Database first if configured (fetches bookings across ALL devices)
+            const spClient = getSupabaseClient();
+            if (spClient) {
+                try {
+                    const { data, error } = await spClient.from('appointments').select('*').order('createdAt', { ascending: false });
+                    if (!error && Array.isArray(data)) {
+                        currentAppointmentsList = data;
+                        
+                        // Merge local offline items into Supabase Cloud
                         const localList = getLocalAppointments();
-                        localList.forEach(localItem => {
+                        for (const localItem of localList) {
                             if (!currentAppointmentsList.some(a => a.id === localItem.id || a.refNumber === localItem.refNumber)) {
-                                currentAppointmentsList.push(localItem);
+                                currentAppointmentsList.unshift(localItem);
+                                try {
+                                    await spClient.from('appointments').upsert([localItem]);
+                                } catch(e) {}
                             }
-                        });
+                        }
                         renderAdminDashboard();
                         return;
                     }
+                } catch (spErr) {
+                    console.error('Supabase load error:', spErr);
                 }
-            } catch (err) {
-                // Static host fallback
             }
 
-            // Static host fallback
+            // 2. Try Express API if server is running
+            const token = localStorage.getItem('nsh_admin_token');
+            if (token) {
+                try {
+                    const res = await fetch('/api/appointments', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success && Array.isArray(data.appointments)) {
+                            currentAppointmentsList = data.appointments;
+                            // Merge local items
+                            const localList = getLocalAppointments();
+                            localList.forEach(localItem => {
+                                if (!currentAppointmentsList.some(a => a.id === localItem.id || a.refNumber === localItem.refNumber)) {
+                                    currentAppointmentsList.push(localItem);
+                                }
+                            });
+                            renderAdminDashboard();
+                            return;
+                        }
+                    }
+                } catch (err) {
+                    // Static host fallback
+                }
+            }
+
+            // 3. Static host fallback to local storage
             currentAppointmentsList = getLocalAppointments();
             renderAdminDashboard();
         }
@@ -2426,26 +2491,35 @@
         }
 
         async function updateAppointmentStatus(id, newStatus) {
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
-
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'PATCH',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` 
-                    },
-                    body: JSON.stringify({ status: newStatus })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
+            const spClient = getSupabaseClient();
+            if (spClient) {
+                try {
+                    await spClient.from('appointments').update({ status: newStatus }).eq('id', id);
+                } catch(e) {
+                    console.error('Supabase status update error:', e);
                 }
-            } catch (err) {}
+            }
+
+            const token = localStorage.getItem('nsh_admin_token');
+            if (token) {
+                try {
+                    const res = await fetch(`/api/appointments/${id}`, {
+                        method: 'PATCH',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}` 
+                        },
+                        body: JSON.stringify({ status: newStatus })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            loadAdminAppointments();
+                            return;
+                        }
+                    }
+                } catch (err) {}
+            }
 
             // Static site fallback: update in localStorage
             const localList = getLocalAppointments();
@@ -2468,37 +2542,48 @@
 
             if (newNote === null) return; // User cancelled
 
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
+            const trimmedNote = newNote.trim();
 
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'PATCH',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` 
-                    },
-                    body: JSON.stringify({ adminNotes: newNote.trim() })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
+            const spClient = getSupabaseClient();
+            if (spClient) {
+                try {
+                    await spClient.from('appointments').update({ adminNotes: trimmedNote }).eq('id', id);
+                } catch(e) {
+                    console.error('Supabase note update error:', e);
                 }
-            } catch (err) {}
+            }
+
+            const token = localStorage.getItem('nsh_admin_token');
+            if (token) {
+                try {
+                    const res = await fetch(`/api/appointments/${id}`, {
+                        method: 'PATCH',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}` 
+                        },
+                        body: JSON.stringify({ adminNotes: trimmedNote })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            loadAdminAppointments();
+                            return;
+                        }
+                    }
+                } catch (err) {}
+            }
 
             // Static site fallback: update in localStorage
             const localList = getLocalAppointments();
             const idx = localList.findIndex(a => a.id === id);
             if (idx !== -1) {
-                localList[idx].adminNotes = newNote.trim();
+                localList[idx].adminNotes = trimmedNote;
                 saveLocalAppointments(localList);
             }
             const memoryIdx = currentAppointmentsList.findIndex(a => a.id === id);
             if (memoryIdx !== -1) {
-                currentAppointmentsList[memoryIdx].adminNotes = newNote.trim();
+                currentAppointmentsList[memoryIdx].adminNotes = trimmedNote;
             }
             renderAdminDashboard();
         }
@@ -2506,22 +2591,31 @@
         async function deleteAppointment(id) {
             if (!confirm('Are you sure you want to permanently delete this appointment record?')) return;
 
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
-
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
+            const spClient = getSupabaseClient();
+            if (spClient) {
+                try {
+                    await spClient.from('appointments').delete().eq('id', id);
+                } catch(e) {
+                    console.error('Supabase delete error:', e);
                 }
-            } catch (err) {}
+            }
+
+            const token = localStorage.getItem('nsh_admin_token');
+            if (token) {
+                try {
+                    const res = await fetch(`/api/appointments/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.success) {
+                            loadAdminAppointments();
+                            return;
+                        }
+                    }
+                } catch (err) {}
+            }
 
             // Static site fallback: delete from localStorage
             let localList = getLocalAppointments();
