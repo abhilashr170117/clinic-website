@@ -1888,7 +1888,7 @@
             </div>
             <div class="modal-body">
                 <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.92rem;">
-                    Sign in with your  Admin email and password to view booked patient appointments .
+                    Sign in with your Supabase Admin email and password to view patient appointments across all devices.
                 </p>
 
                 <form onsubmit="handleAdminLogin(event)">
@@ -1899,7 +1899,12 @@
 
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label class="form-label" for="adminPassword">Password</label>
-                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter Admin Password" required>
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="password" id="adminPassword" class="form-input" style="width: 100%; padding-right: 42px;" placeholder="Enter Admin Password" required>
+                            <button type="button" id="togglePasswordBtn" onclick="toggleAdminPasswordVisibility()" style="position: absolute; right: 10px; background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #555; padding: 4px; display: flex; align-items: center; justify-content: center;" title="Show Password" aria-label="Toggle password visibility">
+                                👁️
+                            </button>
+                        </div>
                     </div>
 
                     <div id="adminLoginError" style="display: none; margin-bottom: 15px; color: #c62828; font-weight: 700; background: #ffebee; padding: 10px; border-radius: 8px; font-size: 0.9rem;"></div>
@@ -2027,7 +2032,30 @@
             document.getElementById('bookingModal').classList.remove('active');
         }
 
+        function toggleAdminPasswordVisibility() {
+            const pwdInput = document.getElementById('adminPassword');
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            if (!pwdInput || !toggleBtn) return;
+            
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                toggleBtn.innerHTML = '🙈';
+                toggleBtn.title = 'Hide Password';
+            } else {
+                pwdInput.type = 'password';
+                toggleBtn.innerHTML = '👁️';
+                toggleBtn.title = 'Show Password';
+            }
+        }
+
         function showAdminLoginModal() {
+            const pwdInput = document.getElementById('adminPassword');
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            if (pwdInput) pwdInput.type = 'password';
+            if (toggleBtn) {
+                toggleBtn.innerHTML = '👁️';
+                toggleBtn.title = 'Show Password';
+            }
             document.getElementById('adminUsername').value = '';
             document.getElementById('adminPassword').value = '';
             document.getElementById('adminLoginError').style.display = 'none';
