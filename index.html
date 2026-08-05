@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Supabase client (single init used by the whole page) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const SUPABASE_URL = 'https://iloorpteokebshvjowwe.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_3tYed7S8jwH9p2K7WjiNzg_2Z6eTQtk';
+      const { createClient } = window.supabase;
+      const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nellore Speech and Hearing Rehabilitation Clinic | Premium Diagnostics & Therapy</title>
@@ -16,7 +24,7 @@
         :root {
             --brand-green: #1e4631;         /* Deep Rich Emerald Forest */
             --brand-dark-green: #122d1f;    /* Luxury Dark Botanical Green */
-            --brand-blue: #1a5f96;          /* Clean Medium Royal Blue (Perfect balanced depth) */
+            --brand-blue: #1a5f96;          /* Clean Medium Royal Blue */
             --brand-dark-blue: #0f3d61;     /* Deep Balanced Navy for contrast */
             --brand-yellow: #f3b01a;        /* Vibrant Marigold Gold / Sharp Accent Yellow */
             --brand-light-yellow: #f8f4e8;  /* Rich Warm Cream / Soft Light Yellow Tint */
@@ -24,7 +32,7 @@
             --text-muted: #4e5d54;          /* Deep Sage Gray for secondary scannability */
             --bg-light-tint: #f1f5f2;       /* Fresh Crisp Green-Tinted White */
             --white: #ffffff;
-            --page-bg: #fdfbf7;             /* Sunwashed Warm Ivory Base (Eliminates dullness) */
+            --page-bg: #fdfbf7;             /* Sunwashed Warm Ivory Base */
         }
 
         * {
@@ -44,7 +52,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Header Navigation: Clean Balanced Blue Background */
+        /* Header Navigation */
         header.site-nav-header {
             background: var(--brand-blue);
             box-shadow: 0 4px 20px rgba(26, 95, 150, 0.15);
@@ -75,10 +83,11 @@
             border-radius: 8px;
             border: 2px solid var(--brand-yellow);
             background-color: var(--white);
+            object-fit: cover;
         }
 
         .brand-logo-area h1 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: var(--white);
             font-weight: 700;
             letter-spacing: -0.3px;
@@ -88,11 +97,11 @@
             display: flex;
             list-style: none;
             gap: 10px;
+            align-items: center;
         }
 
         nav.main-menu a {
             display: inline-block;
-            text-align: left;
             text-decoration: none;
             color: rgba(255, 255, 255, 0.95);
             font-weight: 600;
@@ -107,19 +116,25 @@
             background-color: var(--brand-yellow);
         }
 
-        /* Hero Landing Section - Enhanced Transparency for the Building Image */
+        .nav-cta-btn {
+            background: var(--brand-yellow) !important;
+            color: var(--brand-dark-blue) !important;
+            font-weight: 800 !important;
+        }
+
+        /* Hero Landing Section */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(253, 251, 247, 0.65), rgba(241, 245, 242, 0.65)), url('building.jpeg');
+            background: linear-gradient(135deg, rgba(253, 251, 247, 0.82), rgba(241, 245, 242, 0.88)), url('building.jpeg'), url('https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
             color: var(--text-dark);
-            padding: 140px 20px;
+            padding: 120px 20px;
             text-align: center;
             border-bottom: 1px solid rgba(30, 70, 49, 0.08);
         }
 
         .hero-content h2 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             margin-bottom: 22px;
             font-weight: 800;
             letter-spacing: -0.5px;
@@ -128,10 +143,10 @@
         }
 
         .hero-content p {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             max-width: 780px;
             margin: 0 auto;
-            /* color: var(--text-muted); */
+            color: var(--text-dark);
             font-weight: 500;
         }
 
@@ -166,7 +181,6 @@
             color: var(--brand-blue);
             font-size: 1.15rem;
             cursor: pointer;
-            
             position: relative; 
             overflow: visible;
             display: flex;
@@ -184,7 +198,7 @@
             color: var(--brand-dark-blue);
         }
 
-        /* FLOATING TOOLTIP BOX - Deep Balanced Blue Theme with Sharp Marigold Accents */
+        /* FLOATING TOOLTIP BOX */
         .quick-popup-tooltip {
             position: absolute;
             bottom: 125%; 
@@ -198,14 +212,12 @@
             box-shadow: 0 15px 35px rgba(15, 61, 97, 0.3);
             text-align: left;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
             z-index: 99; 
         }
 
-        /* Triangle Arrow Indicator at base of popup */
         .quick-popup-tooltip::after {
             content: "";
             position: absolute;
@@ -246,20 +258,20 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Standard Clinical Modules Sections Layout Structure */
+        /* Clinical Modules Sections */
         .section-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 20px;
+            padding: 90px 20px;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .section-header h2 {
-            font-size: 2.6rem;
+            font-size: 2.5rem;
             color: var(--brand-dark-green);
             margin-bottom: 16px;
             font-weight: 800;
@@ -268,12 +280,11 @@
 
         .section-header p {
             color: var(--text-muted);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             max-width: 720px;
             margin: 0 auto;
         }
 
-        /* Modularized Therapeutic Suites Grid Layout */
         .module-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -313,7 +324,7 @@
         }
 
         .module-content {
-            padding: 35px;
+            padding: 32px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -321,34 +332,34 @@
 
         .module-content h3 {
             margin-top: 0;
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             color: var(--brand-blue);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
             border-bottom: 2px solid var(--page-bg);
             font-weight: 700;
         }
 
         .module-content ul {
-            padding-left: 22px;
-            margin-bottom: 24px;
+            padding-left: 20px;
+            margin-bottom: 20px;
         }
 
         .module-content li {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             color: var(--text-dark);
-            font-size: 1rem;
+            font-size: 0.98rem;
         }
 
         .module-content li strong {
             color: var(--brand-green);
         }
 
-        /* Expandable Accordion List Panel Mechanics */
+        /* Expandable Accordion List */
         .extended-list {
             display: none;
             border-top: 1px dashed rgba(30, 70, 49, 0.2);
-            padding-top: 18px;
+            padding-top: 16px;
             margin-top: 5px;
         }
 
@@ -360,7 +371,7 @@
             background: var(--white);
             border: 2px solid var(--brand-green);
             color: var(--brand-green);
-            padding: 12px 24px;
+            padding: 12px 22px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
@@ -377,7 +388,7 @@
             box-shadow: 0 6px 15px rgba(30, 70, 49, 0.2);
         }
 
-        /* Play-Based Specialized Tools Panel Layout Matrix */
+        /* Equipment Section */
         .equipment-section-bg {
             background-color: var(--bg-light-tint);
             border-top: 1px solid rgba(18, 45, 31, 0.05);
@@ -405,7 +416,7 @@
         }
 
         .equipment-img-space {
-            height: 240px;
+            height: 230px;
             background: #eef2ef;
             border-bottom: 4px solid var(--brand-yellow);
         }
@@ -417,23 +428,23 @@
         }
 
         .equipment-details {
-            padding: 28px;
+            padding: 26px;
         }
 
         .equipment-details h3 {
             color: var(--brand-blue);
             margin-bottom: 12px;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
         }
 
         .equipment-details p {
             color: var(--text-muted);
-            font-size: 0.98rem;
+            font-size: 0.96rem;
             line-height: 1.6;
         }
 
-        /* Methodology Slider Components Frame */
+        /* Methodology Slider */
         .sessions-media-bg {
             background-color: var(--white);
         }
@@ -475,7 +486,7 @@
         }
 
         .slide-img-wrapper {
-            height: 400px;
+            height: 380px;
             background: #f0f4f1;
             border-bottom: 5px solid var(--brand-green);
         }
@@ -487,35 +498,35 @@
         }
 
         .slide-caption {
-            padding: 28px;
+            padding: 24px;
             background: var(--white);
         }
 
         .slide-caption h3 {
             color: var(--brand-blue);
             margin-bottom: 8px;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 700;
         }
 
         .slide-caption p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.98rem;
         }
 
         .carousel-arrow {
             position: absolute;
-            top: 42%;
+            top: 40%;
             transform: translateY(-50%);
             background: rgba(26, 95, 150, 0.95);
             color: var(--white);
             border: none;
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             cursor: pointer;
             z-index: 10;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -527,14 +538,14 @@
             background: var(--brand-dark-blue);
         }
 
-        .arrow-left { left: 20px; }
-        .arrow-right { right: 20px; }
+        .arrow-left { left: 18px; }
+        .arrow-right { right: 18px; }
 
         .carousel-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
-            padding-bottom: 28px;
+            padding-bottom: 24px;
             background: var(--white);
         }
 
@@ -544,7 +555,7 @@
             border-radius: 50%;
             background: #e2eade;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, width 0.2s;
         }
 
         .dot.active {
@@ -553,11 +564,11 @@
             border-radius: 6px;
         }
 
-        /* Sidebar Side Layout Cards Grid System */
+        /* Sidebar Gallery */
         .gallery-column {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 22px;
         }
 
         .gallery-card {
@@ -571,32 +582,32 @@
         }
 
         .gallery-img {
-            width: 150px;
-            min-width: 150px;
+            width: 140px;
+            min-width: 140px;
             background-size: cover;
             background-position: center;
             background-color: #f0f4f1;
         }
 
         .gallery-text {
-            padding: 24px;
+            padding: 22px;
         }
 
         .gallery-text h4 { 
             margin: 0 0 8px 0; 
             color: var(--brand-blue); 
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
         }
         
         .gallery-text p { 
             margin: 0; 
-            font-size: 0.95rem; 
+            font-size: 0.92rem; 
             color: var(--text-muted);
             line-height: 1.5;
         }
 
-        /* Medical Specialist Verifications Component Badge Grouping */
+        /* Team Section */
         .team-section-bg {
             background-color: var(--brand-light-yellow);
             border-top: 2px solid rgba(243, 176, 26, 0.25);
@@ -606,10 +617,10 @@
         .team-display {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 50px;
+            gap: 45px;
             align-items: center;
             background: var(--white);
-            padding: 50px;
+            padding: 45px;
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(18, 45, 31, 0.06);
             border: 1px solid rgba(30, 70, 49, 0.12);
@@ -621,43 +632,45 @@
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.05);
+            object-fit: cover;
+            max-height: 380px;
         }
 
         .team-text-pane h3 {
             color: var(--brand-dark-green);
-            font-size: 2.1rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 18px;
             font-weight: 800;
             letter-spacing: -0.5px;
         }
 
         .team-text-pane p {
-            font-size: 1.08rem;
+            font-size: 1.05rem;
             color: var(--text-dark);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             line-height: 1.7;
         }
 
         .team-badges {
-            margin-top: 20px;
+            margin-top: 18px;
         }
 
         .team-badges span {
             display: inline-block;
             background: var(--bg-light-tint);
             color: var(--brand-dark-green);
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 30px;
-            margin-right: 14px;
-            margin-bottom: 14px;
+            margin-right: 12px;
+            margin-bottom: 12px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             border: 1px solid rgba(30, 70, 49, 0.2);
             box-shadow: 0 2px 6px rgba(0,0,0,0.02);
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Facility Physical Coordinates Info Block Matrix */
+        /* Facility Coordinates */
         .location-section-wrapper {
             background: var(--white);
             border-top: 1px solid #edf2ee;
@@ -666,7 +679,7 @@
         .facility-layout {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 85px 20px;
+            padding: 80px 20px;
         }
 
         .info-card-panel {
@@ -676,26 +689,25 @@
         }
 
         .info-block {
-            padding: 35px;
+            padding: 32px;
             background: var(--page-bg);
             border-radius: 14px;
             border-left: 6px solid var(--brand-blue);
             box-shadow: 0 4px 18px rgba(0,0,0,0.02);
-            border-top: 1px solid rgba(0,0,0,0.02);
-            border-right: 1px solid rgba(0,0,0,0.02);
-            border-bottom: 1px solid rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.04);
+            border-left: 6px solid var(--brand-blue);
         }
 
         .info-block h3 { 
             margin-top: 0; 
             color: var(--brand-blue); 
-            margin-bottom: 16px; 
-            font-size: 1.3rem;
+            margin-bottom: 14px; 
+            font-size: 1.25rem;
             font-weight: 700;
         }
 
         .info-block p {
-            font-size: 1rem;
+            font-size: 0.98rem;
             line-height: 1.65;
         }
 
@@ -711,13 +723,13 @@
 
         .muted { 
             display: block; 
-            margin-top: 16px; 
-            font-size: 0.9rem; 
+            margin-top: 14px; 
+            font-size: 0.88rem; 
             color: var(--text-muted); 
             font-weight: 600;
         }
 
-        /* Social Platform Channels Strip Layout Element */
+        /* Social Channels */
         .social-strip {
             text-align: center;
             border-top: 1px solid #edf2ee;
@@ -728,12 +740,12 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 30px;
+            margin-top: 28px;
             flex-wrap: wrap;
         }
 
         .social-btn {
-            padding: 15px 36px;
+            padding: 14px 34px;
             border-radius: 35px;
             text-decoration: none;
             color: white;
@@ -741,7 +753,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.05rem;
+            font-size: 1.02rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 5px 18px rgba(0,0,0,0.1);
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -755,18 +767,18 @@
         .btn-instagram { background: #e1306c; }
         .btn-youtube { background: #ff0000; }
 
-        /* Footer Element Frame containing copyright system values */
+        /* Footer */
         footer {
-            background: #0d1410; /* Clean Deep Botanical Jet Black */
+            background: #0d1410;
             color: rgba(255, 255, 255, 0.8);
             text-align: center;
-            padding: 50px 20px;
-            font-size: 0.95rem;
+            padding: 45px 20px;
+            font-size: 0.92rem;
             border-top: 5px solid var(--brand-green);
         }
 
         .footer-credits-ribbon {
-            margin-top: 24px;
+            margin-top: 22px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -787,7 +799,7 @@
 
         .credit-divider { width: 1px; height: 14px; background: #26352b; }
 
-        /* Animation System Core Definitions */
+        /* Animation System */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -798,537 +810,545 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* ADD YOUR MOBILE FIXES HERE */
-    /* Responsive Mobile Optimization */
-@media (max-width: 768px) {
-    html, body {
-        overflow-x: hidden;
-    }
 
-    /* 1. Header adjustment */
-    .nav-container {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-        padding: 12px 15px;
-    }
-    
-    .brand-logo-area {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+            }
 
-    .brand-logo-area img {
-        height: 48px;
-        width: auto;
-    }
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+                padding: 12px 15px;
+            }
+            
+            .brand-logo-area {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
 
-    .brand-logo-area h1 {
-        font-size: 1.15rem;
-        color: #ffffff;
-        text-align: center;
-        margin: 0;
-        line-height: 1.35;
-    }
+            .brand-logo-area img {
+                height: 48px;
+                width: auto;
+            }
 
-    .main-menu {
-        width: 100%;
-    }
+            .brand-logo-area h1 {
+                font-size: 1.15rem;
+                color: #ffffff;
+                text-align: center;
+                margin: 0;
+                line-height: 1.35;
+            }
 
-    .main-menu ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+            .main-menu {
+                width: 100%;
+            }
 
-    .main-menu li {
-        margin: 0;
-    }
+            .main-menu ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
 
-    .main-menu li a {
-        display: inline-block;
-        text-align: center;
-        padding: 7px 13px;
-        background: rgba(255, 255, 255, 0.15);
-        color: #ffffff !important;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 20px;
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 600;
-        white-space: nowrap;
-        transition: all 0.2s ease;
-    }
+            .main-menu li a {
+                display: inline-block;
+                text-align: center;
+                padding: 7px 13px;
+                background: rgba(255, 255, 255, 0.15);
+                color: #ffffff !important;
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                border-radius: 20px;
+                text-decoration: none;
+                font-size: 0.85rem;
+                font-weight: 600;
+                white-space: nowrap;
+                transition: all 0.2s ease;
+            }
 
-    .main-menu li a:hover,
-    .main-menu li a:active {
-        background: rgba(255, 255, 255, 0.3);
-        color: #ffffff !important;
-    }
+            .main-menu li a[onclick*="openBookingModal"] {
+                background: var(--brand-yellow) !important;
+                color: var(--brand-dark-blue) !important;
+                border: none !important;
+                font-weight: 700 !important;
+            }
 
-    /* Special highlight for Book Appointment on mobile */
-    .main-menu li a[onclick*="openBookingModal"] {
-        background: var(--brand-yellow) !important;
-        color: var(--brand-dark-blue) !important;
-        border: none !important;
-        font-weight: 700 !important;
-    }
+            .quick-grid, 
+            .module-grid, 
+            .equipment-threegrid, 
+            .info-card-panel {
+                grid-template-columns: 1fr !important;
+                padding: 30px 15px;
+            }
 
-    /* 2. Stack Grid Layouts */
-    .quick-grid, 
-    .module-grid, 
-    .equipment-threegrid, 
-    .info-card-panel {
-        grid-template-columns: 1fr !important;
-        padding: 30px 15px;
-    }
+            .hero-banner {
+                padding: 80px 20px;
+            }
 
-    /* 3. Hero section padding */
-    .hero-banner {
-        padding: 80px 20px;
-    }
+            .hero-content h2 {
+                font-size: 2rem;
+            }
 
-    .hero-content h2 {
-        font-size: 2rem;
-    }
+            .team-display {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
 
-    /* 4. Team Section Stacking */
-    .team-display {
-        grid-template-columns: 1fr;
-        padding: 25px;
-    }
+            .media-layout {
+                grid-template-columns: 1fr;
+            }
 
-    /* 5. Carousel and Media Adjustments */
-    .media-layout {
-        grid-template-columns: 1fr;
-    }
+            .slide-img-wrapper {
+                height: 250px;
+            }
 
-    .slide-img-wrapper {
-        height: 250px;
-    }
-
-    /* 6. General Spacing */
-    .section-container {
-        padding: 50px 20px;
-    }
-}
-
-    /* Appointment Booking & Admin Portal Custom Styling */
-    .hero-cta-container {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .hero-cta-btn {
-        background-color: var(--brand-yellow);
-        color: var(--brand-dark-blue);
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 1.15rem;
-        font-weight: 800;
-        padding: 16px 36px;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(243, 176, 26, 0.4);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .hero-cta-btn:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 12px 30px rgba(243, 176, 26, 0.5);
-        background-color: #f7ba2a;
-    }
-
-    /* Modal Architecture */
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(15, 61, 97, 0.7);
-        backdrop-filter: blur(6px);
-        z-index: 2000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .modal-container {
-        background: var(--white);
-        width: 100%;
-        max-width: 680px;
-        max-height: 90vh;
-        border-radius: 16px;
-        box-shadow: 0 20px 50px rgba(15, 61, 97, 0.3);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transform: scale(0.95);
-        transition: transform 0.3s ease;
-        border: 1px solid rgba(30, 70, 49, 0.1);
-    }
-
-    .modal-overlay.active .modal-container {
-        transform: scale(1);
-    }
-
-    .modal-container.large-modal {
-        max-width: 1100px;
-    }
-
-    .modal-header {
-        background: var(--brand-dark-blue);
-        color: var(--white);
-        padding: 20px 28px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 3px solid var(--brand-yellow);
-    }
-
-    .modal-title {
-        font-size: 1.35rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .close-btn {
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        color: var(--white);
-        font-size: 1.5rem;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s;
-    }
-
-    .close-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .modal-body {
-        padding: 28px;
-        overflow-y: auto;
-    }
-
-    /* Form Design */
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-    }
-
-    @media (max-width: 600px) {
-        .form-grid {
-            grid-template-columns: 1fr;
+            .section-container {
+                padding: 50px 20px;
+            }
         }
-    }
 
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
+        /* Hero CTA */
+        .hero-cta-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .form-group.full-width {
-        grid-column: 1 / -1;
-    }
+        .hero-cta-btn {
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark-blue);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            padding: 16px 36px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(243, 176, 26, 0.4);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .form-label {
-        font-weight: 700;
-        font-size: 0.92rem;
-        color: var(--brand-dark-blue);
-    }
+        .hero-cta-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(243, 176, 26, 0.5);
+            background-color: #f7ba2a;
+        }
 
-    .form-label span.req {
-        color: #d9381e;
-    }
+        /* Modal Architecture */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(15, 61, 97, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
 
-    .form-input, .form-select, .form-textarea {
-        padding: 12px 16px;
-        border-radius: 8px;
-        border: 1.5px solid #d0dad3;
-        font-family: inherit;
-        font-size: 0.98rem;
-        color: var(--text-dark);
-        background-color: var(--page-bg);
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-        outline: none;
-        border-color: var(--brand-blue);
-        box-shadow: 0 0 0 3px rgba(26, 95, 150, 0.15);
-        background-color: var(--white);
-    }
+        .modal-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(15, 61, 97, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(30, 70, 49, 0.1);
+        }
 
-    .btn-submit {
-        background-color: var(--brand-blue);
-        color: var(--white);
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 1.05rem;
-        font-weight: 700;
-        padding: 14px 28px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        margin-top: 10px;
-    }
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
 
-    .btn-submit:hover {
-        background-color: var(--brand-dark-blue);
-    }
+        .modal-container.large-modal {
+            max-width: 1100px;
+        }
 
-    /* Ticket Confirmation View */
-    .ticket-container {
-        text-align: center;
-        padding: 10px 0;
-    }
+        .modal-header {
+            background: var(--brand-dark-blue);
+            color: var(--white);
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--brand-yellow);
+        }
 
-    .ticket-success-icon {
-        font-size: 3.5rem;
-        margin-bottom: 10px;
-    }
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .ticket-card {
-        background: var(--brand-light-yellow);
-        border: 2px dashed var(--brand-yellow);
-        border-radius: 12px;
-        padding: 24px;
-        margin: 20px 0;
-        text-align: left;
-    }
+        .close-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
 
-    .ticket-ref-box {
-        background: var(--brand-dark-blue);
-        color: var(--white);
-        padding: 12px 18px;
-        border-radius: 8px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 18px;
-    }
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
 
-    .ticket-ref-box code {
-        font-size: 1.25rem;
-        font-weight: 800;
-        letter-spacing: 1px;
-        color: var(--brand-yellow);
-        font-family: monospace;
-    }
+        .modal-body {
+            padding: 28px;
+            overflow-y: auto;
+        }
 
-    .copy-btn {
-        background: rgba(255, 255, 255, 0.2);
-        color: var(--white);
-        border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        cursor: pointer;
-        font-weight: 600;
-    }
+        /* Form Design */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
 
-    .copy-btn:hover {
-        background: var(--brand-yellow);
-        color: var(--brand-dark-blue);
-    }
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    .ticket-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        font-size: 0.95rem;
-    }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
 
-    .ticket-item strong {
-        color: var(--brand-dark-blue);
-        display: block;
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
 
-    /* Admin Dashboard Specific Styles */
-    .admin-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 16px;
-        margin-bottom: 24px;
-    }
+        .form-label {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--brand-dark-blue);
+        }
 
-    .stat-card {
-        background: var(--page-bg);
-        border-radius: 10px;
-        padding: 18px;
-        border-left: 4px solid var(--brand-blue);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
+        .form-label span.req {
+            color: #d9381e;
+        }
 
-    .stat-card.yellow { border-left-color: var(--brand-yellow); }
-    .stat-card.green { border-left-color: #2e7d32; }
-    .stat-card.blue { border-left-color: var(--brand-blue); }
-    .stat-card.red { border-left-color: #c62828; }
+        .form-input, .form-select, .form-textarea {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1.5px solid #d0dad3;
+            font-family: inherit;
+            font-size: 0.98rem;
+            color: var(--text-dark);
+            background-color: var(--page-bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-    .stat-num {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--brand-dark-blue);
-        line-height: 1.2;
-    }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(26, 95, 150, 0.15);
+            background-color: var(--white);
+        }
 
-    .stat-label {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        font-weight: 600;
-        text-transform: uppercase;
-    }
+        .btn-submit {
+            background-color: var(--brand-blue);
+            color: var(--white);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
 
-    .admin-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
+        .btn-submit:hover {
+            background-color: var(--brand-dark-blue);
+        }
 
-    .admin-search {
-        flex: 1;
-        min-width: 240px;
-    }
+        /* Ticket Confirmation View */
+        .ticket-container {
+            text-align: center;
+            padding: 10px 0;
+        }
 
-    .filter-pills {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
+        .ticket-success-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
 
-    .filter-pill {
-        padding: 8px 14px;
-        border-radius: 20px;
-        border: 1px solid #d0dad3;
-        background: var(--white);
-        font-size: 0.88rem;
-        font-weight: 600;
-        cursor: pointer;
-        color: var(--text-muted);
-        transition: all 0.2s;
-    }
+        .ticket-card {
+            background: var(--brand-light-yellow);
+            border: 2px dashed var(--brand-yellow);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            text-align: left;
+        }
 
-    .filter-pill.active {
-        background: var(--brand-dark-blue);
-        color: var(--white);
-        border-color: var(--brand-dark-blue);
-    }
+        .ticket-ref-box {
+            background: var(--brand-dark-blue);
+            color: var(--white);
+            padding: 12px 18px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
 
-    .table-container {
-        overflow-x: auto;
-        border-radius: 10px;
-        border: 1px solid #e0e7e1;
-    }
+        .ticket-ref-box code {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--brand-yellow);
+            font-family: monospace;
+        }
 
-    .admin-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.92rem;
-        text-align: left;
-    }
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
 
-    .admin-table th {
-        background: var(--bg-light-tint);
-        color: var(--brand-dark-blue);
-        padding: 14px 16px;
-        font-weight: 700;
-        border-bottom: 2px solid #d0dad3;
-        white-space: nowrap;
-    }
+        .copy-btn:hover {
+            background: var(--brand-yellow);
+            color: var(--brand-dark-blue);
+        }
 
-    .admin-table td {
-        padding: 14px 16px;
-        border-bottom: 1px solid #edf2ee;
-        vertical-align: middle;
-    }
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
 
-    .admin-table tr:hover {
-        background-color: rgba(248, 244, 232, 0.5);
-    }
+        .ticket-item strong {
+            color: var(--brand-dark-blue);
+            display: block;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    .status-badge {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
+        /* Admin Dashboard Specific Styles */
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
 
-    .status-pending { background: #fff8e1; color: #b78103; border: 1px solid #fce18b; }
-    .status-confirmed { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-    .status-completed { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
-    .status-cancelled { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+        .stat-card {
+            background: var(--page-bg);
+            border-radius: 10px;
+            padding: 18px;
+            border-left: 4px solid var(--brand-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
 
-    .action-btn-group {
-        display: flex;
-        gap: 6px;
-    }
+        .stat-card.yellow { border-left-color: var(--brand-yellow); }
+        .stat-card.green { border-left-color: #2e7d32; }
+        .stat-card.blue { border-left-color: var(--brand-blue); }
+        .stat-card.red { border-left-color: #c62828; }
 
-    .btn-sm {
-        padding: 6px 10px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.2s;
-    }
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--brand-dark-blue);
+            line-height: 1.2;
+        }
 
-    .btn-sm:hover { opacity: 0.85; }
-    .btn-confirm { background: #2e7d32; color: white; }
-    .btn-complete { background: #1565c0; color: white; }
-    .btn-cancel { background: #757575; color: white; }
-    .btn-delete { background: #c62828; color: white; }
-    .btn-edit { background: var(--brand-blue); color: white; }
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
-    .empty-state {
-        text-align: center;
-        padding: 40px 20px;
-        color: var(--text-muted);
-    }
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-search {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #d0dad3;
+            background: var(--white);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .filter-pill.active {
+            background: var(--brand-dark-blue);
+            color: var(--white);
+            border-color: var(--brand-dark-blue);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e0e7e1;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        .admin-table th {
+            background: var(--bg-light-tint);
+            color: var(--brand-dark-blue);
+            padding: 14px 16px;
+            font-weight: 700;
+            border-bottom: 2px solid #d0dad3;
+            white-space: nowrap;
+        }
+
+        .admin-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #edf2ee;
+            vertical-align: middle;
+        }
+
+        .admin-table tr:hover {
+            background-color: rgba(248, 244, 232, 0.5);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: #fff8e1; color: #b78103; border: 1px solid #fce18b; }
+        .status-confirmed { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .status-completed { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+        .status-cancelled { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+        .action-btn-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-sm:hover { opacity: 0.85; }
+        .btn-confirm { background: #2e7d32; color: white; }
+        .btn-complete { background: #1565c0; color: white; }
+        .btn-cancel { background: #757575; color: white; }
+        .btn-delete { background: #c62828; color: white; }
+        .btn-edit { background: var(--brand-blue); color: white; }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        /* Instructions Accordion in Login Modal */
+        .setup-guide-box {
+            background: #f0f7f2;
+            border: 1px solid #c2e0c8;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 18px;
+            font-size: 0.88rem;
+        }
+        .setup-guide-box summary {
+            font-weight: 700;
+            color: var(--brand-dark-green);
+            cursor: pointer;
+        }
+        .setup-guide-box pre {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-top: 8px;
+            font-size: 0.78rem;
+        }
     </style>
 </head>
 <body>
@@ -1337,7 +1357,7 @@
     <header class="site-nav-header">
         <div class="nav-container">
             <div class="brand-logo-area">
-                <img src="logo.jpeg" alt="Nellore Clinic Logo">
+                <img src="logo.jpeg" alt="Nellore Clinic Logo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=150&q=80';">
                 <h1>Nellore Speech & Hearing Rehabilitation Clinic</h1>
             </div>
             <nav class="main-menu">
@@ -1346,14 +1366,14 @@
                     <li><a href="#services">Clinical Suites</a></li>
                     <li><a href="#equipment">Therapeutic Tools</a></li>
                     <li><a href="#location">Contact</a></li>
-                    <li><a href="javascript:void(0)" onclick="openBookingModal()">Book Appointment</a></li>
+                    <li><a href="javascript:void(0)" onclick="openBookingModal()" class="nav-cta-btn">Book Appointment</a></li>
                     <li><a href="javascript:void(0)" onclick="openAdminModal()">Admin Portal</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Top Hero Banner Workspace Grid Element with Faded Background Transparency -->
+    <!-- Top Hero Banner -->
     <section class="hero-banner">
         <div class="hero-content">
             <h2>Nellore Speech & Hearing Rehabilitation Clinic</h2>
@@ -1362,8 +1382,8 @@
                 <button onclick="openBookingModal()" class="hero-cta-btn">
                     📅 Schedule an Appointment Online
                 </button>
-                <p style="font-size:0.95rem; color: var(--text-dark); font-weight: 600; background: rgba(255,255,255,0.75); padding: 6px 16px; border-radius: 20px;">
-                    ⚡ Fast Online Booking • Instant Confirmation Ticket • No Waiting Line
+                <p style="font-size:0.95rem; color: var(--text-dark); font-weight: 600; background: rgba(255,255,255,0.85); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.06);">
+                    ⚡ Fast Online Booking • Instant Confirmation Ticket • Supabase Connected
                 </p>
             </div>
         </div>
@@ -1372,12 +1392,11 @@
     <!-- FLOATING POPUP BOX MATRIX SECTION -->
     <section id="services-list" class="quick-services-strip">
         <div class="quick-grid reveal">
-            
             <!-- Autism -->
             <div class="quick-box">
                 🧩 Autism Support
                 <div class="quick-popup-tooltip">
-                    <p><strong>What it is:</strong> A developmental condition affecting communication, social interaction, and behavior behaviors.</p>
+                    <p><strong>What it is:</strong> A developmental condition affecting communication, social interaction, and behavior traits.</p>
                     <p><strong>How we treat:</strong> Joint–attention tracks, social communication mapping, and functional interaction plans.</p>
                 </div>
             </div>
@@ -1453,7 +1472,6 @@
                     <p><strong>How we treat:</strong> Strategic coaching checkups, home reinforcement guidelines, and collaborative tracking metrics.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -1465,9 +1483,9 @@
         </div>
         
         <div class="module-grid">
-            <!-- Card 1: Speech, Language & Early Development Interventions -->
+            <!-- Card 1 -->
             <div class="module-card reveal">
-                <div class="module-banner" style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTp0f0SQVfIbpYotwDiteekV7_QTzOtpn2x_yCFHiw3wJGgjkiT8zFP5ztwHJfAQFA5eeeGXbU_oBSb-qI');"></div>
+                <div class="module-banner" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80');"></div>
                 <div class="module-content">
                     <h3>Speech & Communication Suite</h3>
                     <ul class="items-preview">
@@ -1484,9 +1502,9 @@
                 </div>
             </div>
 
-            <!-- Card 2: Neurodevelopmental Spectrum Support -->
+            <!-- Card 2 -->
             <div class="module-card reveal">
-                <div class="module-banner" style="background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcR1FeJjHuAN6eGqeYmpt-84gLKXP1aw9XDvGQm6WHg3plhf4QE31oPAlCWFjfSmm0dAA0zxTMqmwkPWa38');"></div>
+                <div class="module-banner" style="background-image: url('https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80');"></div>
                 <div class="module-content">
                     <h3>Neurodevelopmental Integration</h3>
                     <ul class="items-preview">
@@ -1503,7 +1521,7 @@
                 </div>
             </div>
 
-            <!-- Card 3: Physical, Sensory & Behavioral Advanced Therapies -->
+            <!-- Card 3 -->
             <div class="module-card reveal">
                 <div class="module-banner" style="background-image: url('https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=80');"></div>
                 <div class="module-content">
@@ -1533,7 +1551,7 @@
         <div class="equipment-threegrid">
             <div class="equipment-card reveal">
                 <div class="equipment-img-space">
-                    <img src="tools_equipment1.jpeg" alt="Sensory and Motor Coordination Corner">
+                    <img src="tools_equipment1.jpeg" alt="Sensory and Motor Coordination Corner" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=600&q=80';">
                 </div>
                 <div class="equipment-details">
                     <h3>Sensory & Motor Integration</h3>
@@ -1543,7 +1561,7 @@
 
             <div class="equipment-card reveal">
                 <div class="equipment-img-space">
-                    <img src="tools_equipment2.jpeg" alt="Cognitive and Articulation Matching Puzzles Display">
+                    <img src="tools_equipment2.jpeg" alt="Cognitive and Articulation Matching Puzzles Display" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80';">
                 </div>
                 <div class="equipment-details">
                     <h3>Cognitive Linguistics Board Systems</h3>
@@ -1553,7 +1571,7 @@
 
             <div class="equipment-card reveal">
                 <div class="equipment-img-space">
-                    <img src="tools_equipment3.jpeg" alt="Comprehensive Pediatric Therapy Layout Room">
+                    <img src="tools_equipment3.jpeg" alt="Comprehensive Pediatric Therapy Layout Room" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80';">
                 </div>
                 <div class="equipment-details">
                     <h3>Multi-Disciplinary Action Layout</h3>
@@ -1563,7 +1581,7 @@
         </div>
     </section>
 
-    <!-- Methodology Slide Carousel Component Panels -->
+    <!-- Methodology Slide Carousel -->
     <div class="sessions-media-bg">
         <section id="sessions" class="section-container">
             <div class="section-header reveal">
@@ -1578,19 +1596,27 @@
                     <div class="carousel-viewport">
                         <div class="carousel-track" id="carouselTrack">
                             <div class="carousel-slide">
-                                <div class="slide-img-wrapper"><img src="child1.jpeg" alt="Active Speech Intervention Session"></div>
+                                <div class="slide-img-wrapper">
+                                    <img src="child1.jpeg" alt="Active Speech Intervention Session" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80';">
+                                </div>
                                 <div class="slide-caption"><h3>Early Intervention Frameworks</h3><p>Real milestones tracked using structured communication exercises.</p></div>
                             </div>
                             <div class="carousel-slide">
-                                <div class="slide-img-wrapper"><img src="child2.jpeg" alt="Vocabulary Mapping Task Display"></div>
+                                <div class="slide-img-wrapper">
+                                    <img src="child2.jpeg" alt="Vocabulary Mapping Task Display" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80';">
+                                </div>
                                 <div class="slide-caption"><h3>Interactive Vocabulary Mapping</h3><p>Encouraging active word selection through tactile play mechanics.</p></div>
                             </div>
                             <div class="carousel-slide">
-                                <div class="slide-img-wrapper"><img src="child21.jpeg" alt="Alternative Speech Training Interface View"></div>
+                                <div class="slide-img-wrapper">
+                                    <img src="child21.jpeg" alt="Alternative Speech Training Interface View" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80';">
+                                </div>
                                 <div class="slide-caption"><h3>Precision Sound Production</h3><p>Isolating and refining complex phonemes dynamically.</p></div>
                             </div>
                             <div class="carousel-slide">
-                                <div class="slide-img-wrapper"><img src="child3.jpeg" alt="Pediatric Screening Success Landmark"></div>
+                                <div class="slide-img-wrapper">
+                                    <img src="child3.jpeg" alt="Pediatric Screening Success Landmark" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=800&q=80';">
+                                </div>
                                 <div class="slide-caption"><h3>Celebrating Development Milestones</h3><p>Every small communicative win creates lasting functional independence.</p></div>
                             </div>
                         </div>
@@ -1605,14 +1631,14 @@
 
                 <div class="gallery-column">
                     <div class="gallery-card">
-                        <div class="gallery-img" style="background-image: url('childplaying.jpeg');"></div>
+                        <div class="gallery-img" style="background-image: url('childplaying.jpeg'), url('https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=400&q=80');"></div>
                         <div class="gallery-text">
                             <h4>Play-Based Engagement</h4>
                             <p>Utilizing high-interest games to evoke spontaneous linguistic responses from pediatric cases naturally.</p>
                         </div>
                     </div>
                     <div class="gallery-card">
-                        <div class="gallery-img" style="background-image: url('childwithcard.jpeg');"></div>
+                        <div class="gallery-img" style="background-image: url('childwithcard.jpeg'), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80');"></div>
                         <div class="gallery-text">
                             <h4>Visual Accentuation</h4>
                             <p>High-contrast physical tracking materials to help reinforce vocabulary recall pathways.</p>
@@ -1627,7 +1653,7 @@
     <section id="team" class="section-container team-section-bg">
         <div class="team-display reveal">
             <div class="team-img-pane">
-                <img src="staff.jpeg" alt="Nellore Speech and Hearing Clinic Group Professional Photo">
+                <img src="staff.jpeg" alt="Nellore Speech and Hearing Clinic Staff" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80';">
             </div>
             <div class="team-text-pane">
                 <h3>Our Registered Medical Specialists</h3>
@@ -1640,7 +1666,7 @@
         </div>
     </section>
 
-    <!-- Clinic Operational Schedule Map Components -->
+    <!-- Clinic Location -->
     <div id="location" class="location-section-wrapper">
         <section class="facility-layout">
             <div class="info-card-panel reveal">
@@ -1663,7 +1689,7 @@
         </section>
     </div>
 
-    <!-- Community Connections Channels Outlets -->
+    <!-- Social Outlets -->
     <section id="social" class="section-container reveal social-strip">
         <h2>Follow Our Community Outlets</h2>
         <p>Stay updated with developmental tracking ideas, home training workflows, and updates directly from our staff.</p>
@@ -1673,10 +1699,10 @@
         </div>
     </section>
 
-    <!-- Page Footer Ribbon System -->
+    <!-- Footer -->
     <footer>
         <div class="copyright-text">
-            <p>© 2026 Nellore Speech and Hearing Rehabilitation Clinic. All Rights Reserved. Private Rehabilitation Practices Network.</p>
+            <p>© 2026 Nellore Speech and Hearing Rehabilitation Clinic. All Rights Reserved.</p>
         </div>
         
         <div class="footer-credits-ribbon">
@@ -1853,7 +1879,7 @@
 
     <!-- 2. Admin Login Modal -->
     <div id="adminLoginModal" class="modal-overlay">
-        <div class="modal-container" style="max-width: 440px;">
+        <div class="modal-container" style="max-width: 480px;">
             <div class="modal-header">
                 <div class="modal-title">
                     <span>🔒</span> Admin Portal Login
@@ -1862,18 +1888,18 @@
             </div>
             <div class="modal-body">
                 <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.92rem;">
-                    Access clinic appointment records, update booking statuses, and manage patient requests.
+                    Sign in with your Supabase Admin email and password to view patient appointments across all devices.
                 </p>
 
                 <form onsubmit="handleAdminLogin(event)">
                     <div class="form-group" style="margin-bottom: 16px;">
-                        <label class="form-label" for="adminUsername">Username</label>
-                        <input type="text" id="adminUsername" class="form-input" placeholder="Enter Admin Username" required value="">
+                        <label class="form-label" for="adminUsername">Admin Email / Username</label>
+                        <input type="text" id="adminUsername" class="form-input" placeholder="e.g. admin@nsh-clinic.local or your email" required>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label class="form-label" for="adminPassword">Password</label>
-                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter Admin Password" required value="">
+                        <input type="password" id="adminPassword" class="form-input" placeholder="Enter Admin Password" required>
                     </div>
 
                     <div id="adminLoginError" style="display: none; margin-bottom: 15px; color: #c62828; font-weight: 700; background: #ffebee; padding: 10px; border-radius: 8px; font-size: 0.9rem;"></div>
@@ -1882,6 +1908,49 @@
                         🔑 Login to Admin Dashboard
                     </button>
                 </form>
+
+                <details class="setup-guide-box">
+                    <summary>🛠️ Supabase Setup & RLS Instructions (Click to expand)</summary>
+                    <div style="margin-top: 8px;">
+                        <p><strong>1. Create SQL Table & Row Level Security Rules:</strong></p>
+                        <p>In your Supabase Dashboard ➔ SQL Editor, execute this script:</p>
+                        <pre><code>CREATE TABLE IF NOT EXISTS public.appointments (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    ref_number TEXT NOT NULL UNIQUE,
+    patient_name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT,
+    age INT,
+    gender TEXT,
+    service TEXT NOT NULL,
+    preferred_date DATE NOT NULL,
+    preferred_time_slot TEXT NOT NULL,
+    notes TEXT,
+    status TEXT NOT NULL DEFAULT 'Pending',
+    admin_notes TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.appointments ENABLE ROW LEVEL SECURITY;
+
+-- Allow public patients to INSERT appointments
+CREATE POLICY "Allow public insert" ON public.appointments
+    FOR INSERT TO public WITH CHECK (true);
+
+-- Allow authenticated Admins to SELECT, UPDATE, DELETE appointments
+CREATE POLICY "Allow admin select" ON public.appointments
+    FOR SELECT TO authenticated USING (true);
+
+CREATE POLICY "Allow admin update" ON public.appointments
+    FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+
+CREATE POLICY "Allow admin delete" ON public.appointments
+    FOR DELETE TO authenticated USING (true);</code></pre>
+                        <p style="margin-top:10px;"><strong>2. Create Admin Account:</strong></p>
+                        <p>In Supabase ➔ Authentication ➔ Users ➔ "Add User", create your admin email & password (e.g., <code>admin@nsh-clinic.local</code>).</p>
+                    </div>
+                </details>
             </div>
         </div>
     </div>
@@ -1894,8 +1963,8 @@
                     <span>🏥</span> Clinic Appointments Dashboard
                 </div>
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <span style="font-size: 0.9rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px;" id="adminLoggedUser">Admin</span>
-                    <button class="close-btn" onclick="handleAdminLogout()" title="Logout" style="font-size: 1rem; width: auto; height: auto; padding: 6px 12px; border-radius: 6px; gap: 4px;">
+                    <span style="font-size: 0.88rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px;" id="adminLoggedUser">Admin</span>
+                    <button class="close-btn" onclick="handleAdminLogout()" title="Logout" style="font-size: 0.9rem; width: auto; height: auto; padding: 6px 12px; border-radius: 6px;">
                         🚪 Logout
                     </button>
                     <button class="close-btn" onclick="closeAdminDashboardModal()">&times;</button>
@@ -1974,31 +2043,28 @@
         </div>
     </div>
 
-    <!-- Interactive Component Script Controls Logic -->
+    <!-- Script Controls -->
     <script>
-        // Set min date for appointment booking date picker to today
         document.addEventListener('DOMContentLoaded', () => {
             const today = new Date().toISOString().split('T')[0];
             const dateInput = document.getElementById('preferredDate');
             if (dateInput) {
                 dateInput.min = today;
-                // Default preferred date to tomorrow
                 const tomorrow = new Date();
                 tomorrow.setDate(tomorrow.getDate() + 1);
                 dateInput.value = tomorrow.toISOString().split('T')[0];
             }
         });
 
-        // Global State variables
         let currentAppointmentsList = [];
         let activeStatusFilter = 'All';
 
-        // Modal Handlers
         function openBookingModal() {
             document.getElementById('bookingModal').classList.add('active');
             document.getElementById('bookingFormView').style.display = 'block';
             document.getElementById('bookingSuccessView').style.display = 'none';
         }
+        window.openBookingModal = openBookingModal;
 
         function closeBookingModal() {
             document.getElementById('bookingModal').classList.remove('active');
@@ -2011,52 +2077,35 @@
             document.getElementById('adminLoginModal').classList.add('active');
         }
 
-        // LocalStorage helpers for static/client-side persistence (e.g. GitHub Pages)
-        function getLocalAppointments() {
-            try {
-                const stored = localStorage.getItem('nsh_appointments_list');
-                return stored ? JSON.parse(stored) : [];
-            } catch(e) {
-                return [];
-            }
+        function mapAppointmentRow(row) {
+            return {
+                id: row.id,
+                refNumber: row.ref_number,
+                patientName: row.patient_name,
+                phone: row.phone,
+                email: row.email,
+                age: row.age,
+                gender: row.gender,
+                service: row.service,
+                preferredDate: row.preferred_date,
+                preferredTimeSlot: row.preferred_time_slot,
+                notes: row.notes,
+                status: row.status,
+                adminNotes: row.admin_notes,
+                createdAt: row.created_at
+            };
         }
 
-        function saveLocalAppointments(list) {
-            try {
-                localStorage.setItem('nsh_appointments_list', JSON.stringify(list));
-            } catch(e) {}
-        }
-
-        function openAdminModal() {
-            const token = localStorage.getItem('nsh_admin_token');
-            if (token) {
-                if (token.startsWith('static_admin_token_')) {
-                    openAdminDashboardModal();
-                    return;
-                }
-                fetch('/api/admin/verify', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                })
-                .then(res => {
-                    if (res.ok) return res.json();
-                    throw new Error('Static host or server error');
-                })
-                .then(data => {
-                    if (data && data.success) {
-                        openAdminDashboardModal();
-                    } else {
-                        localStorage.removeItem('nsh_admin_token');
-                        showAdminLoginModal();
-                    }
-                })
-                .catch(() => {
-                    // Static fallback: allow stored token if server is unreachable or 405
-                    openAdminDashboardModal();
-                });
+        async function openAdminModal() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                document.getElementById('adminLoggedUser').textContent = session.user.email || 'Admin';
+                openAdminDashboardModal();
             } else {
                 showAdminLoginModal();
             }
         }
+        window.openAdminModal = openAdminModal;
 
         function closeAdminLoginModal() {
             document.getElementById('adminLoginModal').classList.remove('active');
@@ -2072,13 +2121,13 @@
             document.getElementById('adminDashboardModal').classList.remove('active');
         }
 
-        function handleAdminLogout() {
-            localStorage.removeItem('nsh_admin_token');
+        async function handleAdminLogout() {
+            await supabaseClient.auth.signOut();
             closeAdminDashboardModal();
             alert('Logged out successfully.');
         }
 
-        // Handle Public Booking Submission
+        // Public Booking Submission Handler
         async function handleBookingSubmit(event) {
             event.preventDefault();
             const errorDiv = document.getElementById('bookingError');
@@ -2104,58 +2153,41 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Submitting Request...';
 
-            let appt = null;
+            const refNum = 'NSH-' + Math.floor(10000 + Math.random() * 90000);
 
-            try {
-                const response = await fetch('/api/appointments', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        patientName, phone, email, age, gender, service, preferredDate, preferredTimeSlot, notes
-                    })
-                });
+            const record = {
+                ref_number: refNum,
+                patient_name: patientName,
+                phone: phone,
+                email: email || null,
+                age: age ? parseInt(age, 10) : null,
+                gender: gender,
+                service: service,
+                preferred_date: preferredDate,
+                preferred_time_slot: preferredTimeSlot,
+                notes: notes || null,
+                status: 'Pending'
+            };
 
-                if (response.ok) {
-                    const result = await response.json();
-                    if (result.success && result.appointment) {
-                        appt = result.appointment;
-                    }
-                }
-            } catch (err) {
-                // Network or static host without backend server
+            const { data, error } = await supabaseClient
+                .from('appointments')
+                .insert([record]);
+
+            if (error) {
+                console.error('Supabase Insert Error:', error);
+                errorDiv.textContent = 'Error inserting booking: ' + (error.message || 'Please check Supabase setup.');
+                errorDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Confirm & Request Appointment ➔';
+                return;
             }
 
-            // Static site fallback if backend API is not available or returned error/405
-            if (!appt) {
-                const refNum = 'NSH-' + Math.floor(10000 + Math.random() * 90000);
-                appt = {
-                    id: 'appt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
-                    refNumber: refNum,
-                    patientName,
-                    phone,
-                    email,
-                    age,
-                    gender,
-                    service,
-                    preferredDate,
-                    preferredTimeSlot,
-                    notes,
-                    status: 'Pending',
-                    createdAt: new Date().toISOString(),
-                    adminNotes: ''
-                };
-
-                const localList = getLocalAppointments();
-                localList.unshift(appt);
-                saveLocalAppointments(localList);
-            }
-
-            document.getElementById('resRefNumber').textContent = appt.refNumber;
-            document.getElementById('resPatientName').textContent = appt.patientName;
-            document.getElementById('resService').textContent = appt.service;
-            document.getElementById('resDate').textContent = appt.preferredDate;
-            document.getElementById('resTimeSlot').textContent = appt.preferredTimeSlot;
-            document.getElementById('resPhone').textContent = appt.phone;
+            document.getElementById('resRefNumber').textContent = refNum;
+            document.getElementById('resPatientName').textContent = patientName;
+            document.getElementById('resService').textContent = service;
+            document.getElementById('resDate').textContent = preferredDate;
+            document.getElementById('resTimeSlot').textContent = preferredTimeSlot;
+            document.getElementById('resPhone').textContent = phone;
             
             document.getElementById('bookingFormView').style.display = 'none';
             document.getElementById('bookingSuccessView').style.display = 'block';
@@ -2209,8 +2241,6 @@
 
         function printReceipt() {
             const printContent = document.getElementById('printableTicket').innerHTML;
-            const originalBody = document.body.innerHTML;
-            
             const printWindow = window.open('', '', 'width=700,height=600');
             printWindow.document.write(`
                 <html>
@@ -2242,7 +2272,7 @@
             }, 300);
         }
 
-        // Handle Admin Login Submission
+        // Admin Auth Login Handler
         async function handleAdminLogin(event) {
             event.preventDefault();
             const username = document.getElementById('adminUsername').value.trim();
@@ -2254,80 +2284,47 @@
             btn.disabled = true;
             btn.innerHTML = 'Authenticating...';
 
-            try {
-                const res = await fetch('/api/admin/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+            const email = username.includes('@') ? username : `${username}@nsh-clinic.local`;
 
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && data.token) {
-                        localStorage.setItem('nsh_admin_token', data.token);
-                        document.getElementById('adminLoggedUser').textContent = data.username || 'Admin';
-                        openAdminDashboardModal();
-                        btn.disabled = false;
-                        btn.innerHTML = '🔑 Login to Admin Dashboard';
-                        return;
-                    }
-                }
-            } catch (err) {
-                // Static host fallback below
-            }
-
-            // Static deployment fallback (for GitHub Pages / static hosting without Node server)
-            // Checks entered username and password
-            if (username.toLowerCase() === 'admin' && (password === 'clinic123' || password.length > 0)) {
-                const token = 'static_admin_token_' + Date.now();
-                localStorage.setItem('nsh_admin_token', token);
-                document.getElementById('adminLoggedUser').textContent = username || 'Admin';
-                openAdminDashboardModal();
-            } else {
-                errorDiv.textContent = 'Invalid admin username or password.';
-                errorDiv.style.display = 'block';
-            }
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
             btn.disabled = false;
             btn.innerHTML = '🔑 Login to Admin Dashboard';
-        }
 
-        // Load Admin Appointments List
-        async function loadAdminAppointments() {
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
-
-            try {
-                const res = await fetch('/api/appointments', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && Array.isArray(data.appointments)) {
-                        currentAppointmentsList = data.appointments;
-                        // Merge local items
-                        const localList = getLocalAppointments();
-                        localList.forEach(localItem => {
-                            if (!currentAppointmentsList.some(a => a.id === localItem.id || a.refNumber === localItem.refNumber)) {
-                                currentAppointmentsList.push(localItem);
-                            }
-                        });
-                        renderAdminDashboard();
-                        return;
-                    }
-                }
-            } catch (err) {
-                // Static host fallback
+            if (error || !data.session) {
+                errorDiv.textContent = error ? error.message : 'Invalid admin credentials.';
+                errorDiv.style.display = 'block';
+                return;
             }
 
-            // Static host fallback
-            currentAppointmentsList = getLocalAppointments();
+            document.getElementById('adminLoggedUser').textContent = data.user.email;
+            openAdminDashboardModal();
+        }
+
+        // Load Appointments (Admin only via Supabase RLS)
+        async function loadAdminAppointments() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                showAdminLoginModal();
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from('appointments')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Fetch Error:', error.message);
+                alert('Could not load appointments: ' + error.message);
+                return;
+            }
+
+            currentAppointmentsList = (data || []).map(mapAppointmentRow);
             renderAdminDashboard();
         }
 
-        // Render Admin Dashboard Table & Stats
         function renderAdminDashboard() {
-            // Stats calculations
             const total = currentAppointmentsList.length;
             const pending = currentAppointmentsList.filter(a => a.status === 'Pending').length;
             const confirmed = currentAppointmentsList.filter(a => a.status === 'Confirmed').length;
@@ -2360,10 +2357,10 @@
             const filtered = currentAppointmentsList.filter(item => {
                 const matchesStatus = (activeStatusFilter === 'All') || (item.status === activeStatusFilter);
                 const matchesSearch = !searchTerm || 
-                    item.refNumber.toLowerCase().includes(searchTerm) ||
-                    item.patientName.toLowerCase().includes(searchTerm) ||
-                    item.phone.toLowerCase().includes(searchTerm) ||
-                    item.service.toLowerCase().includes(searchTerm) ||
+                    (item.refNumber && item.refNumber.toLowerCase().includes(searchTerm)) ||
+                    (item.patientName && item.patientName.toLowerCase().includes(searchTerm)) ||
+                    (item.phone && item.phone.toLowerCase().includes(searchTerm)) ||
+                    (item.service && item.service.toLowerCase().includes(searchTerm)) ||
                     (item.email && item.email.toLowerCase().includes(searchTerm));
                 
                 return matchesStatus && matchesSearch;
@@ -2387,7 +2384,7 @@
                 tr.innerHTML = `
                     <td>
                         <strong style="color: var(--brand-dark-blue); font-family: monospace;">${appt.refNumber}</strong><br>
-                        <span style="font-size: 0.78rem; color: #777;">${new Date(appt.createdAt).toLocaleDateString()}</span>
+                        <span style="font-size: 0.78rem; color: #777;">${appt.createdAt ? new Date(appt.createdAt).toLocaleDateString() : ''}</span>
                     </td>
                     <td>
                         <strong>${escapeHtml(appt.patientName)}</strong> 
@@ -2413,7 +2410,7 @@
                     </td>
                     <td>
                         <div class="action-btn-group">
-                            <button class="btn-sm" style="background: #25d366; color: white; font-weight: 700;" title="Send WhatsApp Message to Patient" onclick="openPatientWhatsApp('${appt.id}')">📲 WhatsApp</button>
+                            <button class="btn-sm" style="background: #25d366; color: white; font-weight: 700;" title="Send WhatsApp Message" onclick="openPatientWhatsApp('${appt.id}')">📲 WhatsApp</button>
                             ${appt.status !== 'Confirmed' ? `<button class="btn-sm btn-confirm" title="Mark Confirmed" onclick="updateAppointmentStatus('${appt.id}', 'Confirmed')">✓ Confirm</button>` : ''}
                             ${appt.status !== 'Completed' ? `<button class="btn-sm btn-complete" title="Mark Completed" onclick="updateAppointmentStatus('${appt.id}', 'Completed')">✔ Complete</button>` : ''}
                             ${appt.status !== 'Cancelled' ? `<button class="btn-sm btn-cancel" title="Cancel Booking" onclick="updateAppointmentStatus('${appt.id}', 'Cancelled')">✖ Cancel</button>` : ''}
@@ -2426,34 +2423,16 @@
         }
 
         async function updateAppointmentStatus(id, newStatus) {
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
+            const { error } = await supabaseClient
+                .from('appointments')
+                .update({ status: newStatus })
+                .eq('id', id);
 
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'PATCH',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` 
-                    },
-                    body: JSON.stringify({ status: newStatus })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
-                }
-            } catch (err) {}
-
-            // Static site fallback: update in localStorage
-            const localList = getLocalAppointments();
-            const idx = localList.findIndex(a => a.id === id);
-            if (idx !== -1) {
-                localList[idx].status = newStatus;
-                saveLocalAppointments(localList);
+            if (error) {
+                alert('Failed to update status: ' + error.message);
+                return;
             }
+
             const memoryIdx = currentAppointmentsList.findIndex(a => a.id === id);
             if (memoryIdx !== -1) {
                 currentAppointmentsList[memoryIdx].status = newStatus;
@@ -2466,36 +2445,18 @@
             const currentNote = appt ? appt.adminNotes || '' : '';
             const newNote = prompt('Add/Edit Admin Note for patient ' + (appt ? appt.patientName : '') + ':', currentNote);
 
-            if (newNote === null) return; // User cancelled
+            if (newNote === null) return;
 
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
+            const { error } = await supabaseClient
+                .from('appointments')
+                .update({ admin_notes: newNote.trim() })
+                .eq('id', id);
 
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'PATCH',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` 
-                    },
-                    body: JSON.stringify({ adminNotes: newNote.trim() })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
-                }
-            } catch (err) {}
-
-            // Static site fallback: update in localStorage
-            const localList = getLocalAppointments();
-            const idx = localList.findIndex(a => a.id === id);
-            if (idx !== -1) {
-                localList[idx].adminNotes = newNote.trim();
-                saveLocalAppointments(localList);
+            if (error) {
+                alert('Failed to save note: ' + error.message);
+                return;
             }
+
             const memoryIdx = currentAppointmentsList.findIndex(a => a.id === id);
             if (memoryIdx !== -1) {
                 currentAppointmentsList[memoryIdx].adminNotes = newNote.trim();
@@ -2506,27 +2467,15 @@
         async function deleteAppointment(id) {
             if (!confirm('Are you sure you want to permanently delete this appointment record?')) return;
 
-            const token = localStorage.getItem('nsh_admin_token');
-            if (!token) return;
+            const { error } = await supabaseClient
+                .from('appointments')
+                .delete()
+                .eq('id', id);
 
-            try {
-                const res = await fetch(`/api/appointments/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success) {
-                        loadAdminAppointments();
-                        return;
-                    }
-                }
-            } catch (err) {}
-
-            // Static site fallback: delete from localStorage
-            let localList = getLocalAppointments();
-            localList = localList.filter(a => a.id !== id);
-            saveLocalAppointments(localList);
+            if (error) {
+                alert('Failed to delete: ' + error.message);
+                return;
+            }
 
             currentAppointmentsList = currentAppointmentsList.filter(a => a.id !== id);
             renderAdminDashboard();
@@ -2575,7 +2524,7 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // Smooth Intersection Observer Animations
+        // Intersection Observer for scroll animations
         const elementsToReveal = document.querySelectorAll('.reveal');
         const observerConf = { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
         const viewObserver = new IntersectionObserver((entries, observer) => {
@@ -2588,7 +2537,7 @@
         }, observerConf);
         elementsToReveal.forEach(el => viewObserver.observe(el));
 
-        // Read More Accordion Functionality Loop
+        // Read More Accordions
         document.querySelectorAll('.read-more-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const card = btn.closest('.module-card');
@@ -2600,7 +2549,7 @@
             });
         });
 
-        // Beneficiaries Component Slider Script Mechanics
+        // Carousel Slider
         const track = document.getElementById('carouselTrack');
         if (track) {
             const slides = Array.from(track.children);
