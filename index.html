@@ -1888,7 +1888,7 @@
             </div>
             <div class="modal-body">
                 <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 0.92rem;">
-                    Sign in with your Supabase Admin email and password to view patient appointments across all devices.
+                    Sign in with your  Admin email and password to view booked patient appointments .
                 </p>
 
                 <form onsubmit="handleAdminLogin(event)">
@@ -1908,49 +1908,6 @@
                         🔑 Login to Admin Dashboard
                     </button>
                 </form>
-
-                <details class="setup-guide-box">
-                    <summary>🛠️ Supabase Setup & RLS Instructions (Click to expand)</summary>
-                    <div style="margin-top: 8px;">
-                        <p><strong>1. Create SQL Table & Row Level Security Rules:</strong></p>
-                        <p>In your Supabase Dashboard ➔ SQL Editor, execute this script:</p>
-                        <pre><code>CREATE TABLE IF NOT EXISTS public.appointments (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    ref_number TEXT NOT NULL UNIQUE,
-    patient_name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT,
-    age INT,
-    gender TEXT,
-    service TEXT NOT NULL,
-    preferred_date DATE NOT NULL,
-    preferred_time_slot TEXT NOT NULL,
-    notes TEXT,
-    status TEXT NOT NULL DEFAULT 'Pending',
-    admin_notes TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-ALTER TABLE public.appointments ENABLE ROW LEVEL SECURITY;
-
--- Allow public patients to INSERT appointments
-CREATE POLICY "Allow public insert" ON public.appointments
-    FOR INSERT TO public WITH CHECK (true);
-
--- Allow authenticated Admins to SELECT, UPDATE, DELETE appointments
-CREATE POLICY "Allow admin select" ON public.appointments
-    FOR SELECT TO authenticated USING (true);
-
-CREATE POLICY "Allow admin update" ON public.appointments
-    FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
-
-CREATE POLICY "Allow admin delete" ON public.appointments
-    FOR DELETE TO authenticated USING (true);</code></pre>
-                        <p style="margin-top:10px;"><strong>2. Create Admin Account:</strong></p>
-                        <p>In Supabase ➔ Authentication ➔ Users ➔ "Add User", create your admin email & password (e.g., <code>admin@nsh-clinic.local</code>).</p>
-                    </div>
-                </details>
             </div>
         </div>
     </div>
